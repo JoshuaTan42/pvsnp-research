@@ -1,0 +1,203 @@
+VERIFIED FACT SHEET: BOOLEAN CIRCUIT LOWER BOUNDS (compiled 2026-10-08 by a research subagent of session S0; copied verbatim from its hand-back report)
+
+Method and caveats. 30 WebSearch and 35 WebFetch calls were used (the full budget). "verified (fetched)" means I fetched the cited page and it states the claim; quotes are verbatim from the fetched page (LaTeX rendered as plain text). Pages I could NOT fetch: ACM Digital Library (HTTP 403), Springer article pages (redirect to a login endpoint), PDFs (WebFetch returns only compressed binary), the CJTCS page for Paturi-Pudlak-Zane (certificate error). For paywalled classics I fetched the Crossref or Semantic Scholar metadata record; those records confirmed title/venue/year but carried no abstract, so the numerical bounds of those classics are labelled "unverified (search snippet only)". Nothing below is quoted from memory.
+
+A. GENERAL CIRCUITS OVER THE FULL BINARY BASIS (B_2), EXPLICIT FUNCTIONS
+
+Claim A1. Find, Golovnev, Hirsch and Kulikov prove a (3+1/86)n - o(n) size lower bound for circuits over the full binary basis computing an explicit affine disperser for sublinear dimension, the first improvement over Blum's 3n - o(n) (1984). Conference version FOCS 2016; ECCC TR15-166 (17 Oct 2015); Revision 2 (19 Aug 2022) is retitled "Improving 3n Circuit Complexity Lower Bounds".
+Source: ECCC TR15-166. https://eccc.weizmann.ac.il/report/2015/166/
+Quote: "We consider Boolean circuits over the full binary basis." and "We prove a (3+1/86)n-o(n) lower bound on the size of such a circuit" (function: "an affine disperser for sublinear dimension").
+Status: verified (fetched). FOCS 2016 venue verified via the Li-Yang abstract (A2), which cites "Find et al. (FOCS, 2016)".
+
+Claim A2. Li and Yang prove a 3.1n - o(n) lower bound for affine dispersers (functions constructible in P), the current record for explicit functions over B_2. ECCC TR21-023 (21 Feb 2021); conference version STOC 2022.
+Source: Jiatu Li, Tianqi Yang, "3.1n - o(n) Circuit Lower Bounds for Explicit Functions", ECCC TR21-023. https://eccc.weizmann.ac.il/report/2021/023/
+Quote: "we prove a stronger lower bound 3.1n - o(n) for affine dispersers" ; "a 3n-o(n) explicit lower bound by Blum (TCS, 1984) was unbeaten for over 30 years." ; "affine dispersers, a class of functions known to be constructible in P".
+Status: verified (fetched) for the bound and function. That the bound is for B_2 circuits, and the STOC 2022 venue, are unverified (search snippet only).
+
+Claim A3. Before Li-Yang the best general-circuit bounds had been "around 3n for several decades", and gate elimination is inherently limited to below 5n.
+Source: Golovnev, Kulikov, Williams, "Circuit Depth Reductions", arXiv:1811.04828. https://arxiv.org/abs/1811.04828
+Quote: "The best known size lower bounds against unrestricted circuits have remained around 3n for several decades." ; "gate elimination, is inherently limited to proving lower bounds of less than 5n."
+Status: verified (fetched).
+
+Claim A4 (2026). Carmosino, Dang and Jackman (Feb 2026) formalize gate elimination as a convergent term-graph rewriting system and give the first constructive (refuter-based) lower bound via gate elimination, re-proving Schnorr's 3(n-1) bound for XOR in the DeMorgan basis; no new numerical bound for B_2 is claimed.
+Source: arXiv:2602.17942. https://arxiv.org/abs/2602.17942
+Quote: "generalizing Schnorr's classical result that the XOR function requires 3(n - 1) gates to compute in the DeMorgan basis." ; "until this work, no constructive lower bound had been proved via gate elimination."
+Status: verified (fetched).
+
+OPEN (A). No explicit function is known to require more than 3.1n - o(n) gates over B_2 (lacker.io problem page, August 2026: unverified, search snippet only). 2026 snippet: Ran Raz, ECCC TR26-008, natural proofs for super-linear lower bounds for linear functions (snippet only; verified separately by S0, see LANDSCAPE.md).
+
+B. DE MORGAN FORMULAS AND THE KRW CONJECTURE
+
+Claim B1. Hastad (SIAM J. Comput. 1998) proved the shrinkage exponent of de Morgan formulas is 2, giving n^{3-o(1)} for Andreev's function; still the best for explicit functions.
+Source: Semantic Scholar record DOI:10.1137/S0097539794261556 (title/year only); Golovnev, Kulikov, Williams arXiv:1811.04828.
+Quote: "For DeMorgan formulas, the best known size lower bounds have been stuck at around n^{3-o(1)} for decades."
+Status: verified (fetched) for the title and the state of the art; attribution to Hastad verified via Tal's abstract (B2).
+
+Claim B2. Tal (FOCS 2014): Andreev's function requires de Morgan formulas of size Omega(n^3/(log^2 n log log n)).
+Source: Avishay Tal, "Shrinkage of de Morgan Formulae by Spectral Techniques", ECCC TR14-048. https://eccc.weizmann.ac.il/report/2014/048/
+Quote: "has formula size at least Omega(n^3/(log^2 n log log n))" ; "improves the work of Hastad [SIAM J. C., 1998] by removing logarithmic factors".
+Status: verified (fetched). FOCS 2014 venue: unverified (memory).
+
+Claim B3. KRW conjecture (Karchmer, Raz, Wigderson 1995): validity implies P not in NC^1; de Rezende, Meir, Nordstrom, Pitassi, Robere prove it for every monotone inner function whose depth is lower-bounded by lifting, and in a semi-monotone setting; general conjecture open.
+Source: ECCC TR20-099. https://eccc.weizmann.ac.il/report/2020/099/
+Quote: "They showed that the validity of this conjecture would imply that" P not in NC^1 ; "it is an important challenge to prove the KRW conjecture for a wider range of inner functions." ; "We prove it for every monotone inner function g whose depth complexity can be lower bounded".
+Status: verified (fetched). Venues unverified (search snippet only).
+
+Claim B4. Meir (FOCS 2023): a KRW-like theorem for strong composition; the remaining obstacle is showing ordinary composition behaves like a direct sum.
+Source: ECCC TR23-078. https://eccc.weizmann.ac.il/report/2023/078/
+Quote: "We prove a variant of the KRW conjecture for strong composition, thus overcoming the above second obstacle." ; "This result demonstrates that the first obstacle above is the crucial barrier toward resolving the KRW conjecture."
+Status: verified (fetched). FOCS 2023 venue: unverified (search snippet only).
+
+OPEN (B). Super-cubic de Morgan formula lower bounds; the KRW conjecture; P vs NC^1.
+
+C. AC0 AND AC0[p]
+
+Claim C1. Hastad (STOC 1986) used the switching lemma to prove tight exponential lower bounds for parity against depth-k AC0, improving Furst-Saxe-Sipser and Ajtai; the bound is exp(Omega(n^{1/(d-1)})).
+Source: Wikipedia, "Switching lemma". https://en.wikipedia.org/wiki/Switching_lemma
+Quote: "It was first introduced by Johan Hastad to prove that AC0 Boolean circuits of depth k require size" [formula omitted] "to compute the parity function on n bits." ; "improving on the prior super-polynomial lower bounds of Merrick Furst, James Saxe and Michael Sipser" "and independently Miklos Ajtai."
+Status: verified (secondary: Wikipedia); explicit formula unverified (search snippet only). [S0 note: the formula exp(Omega_d(n^{1/(d-1)})) is stated in the abstract of arXiv 2609.24188, read by S0.]
+
+Claim C2. Rossman (STOC 2008): constant-depth circuits for k-clique need size omega(n^{k/4}).
+Source: Crossref record of DOI 10.1145/1374376.1374480 (no abstract).
+Status: title/venue/year verified (fetched); the bound is unverified (search snippet only).
+
+Claim C3. Razborov (1987) and Smolensky (1987): MOD_m not in AC0[p] for prime p unless m is a power of p.
+Source: Wikipedia, "ACC0". https://en.wikipedia.org/wiki/ACC0
+Quote: "More generally, the function MOD_m cannot be computed in AC0[p] for prime p unless m is a power of p."
+Status: verified (secondary: Wikipedia).
+
+Claim C4 (OPEN: composite moduli). No lower bounds against AC0[m] for composite m are known for NP or any class below NQP; before Williams 2011 it was not known whether EXP^NP had depth-3 polynomial-size MOD6 circuits; whether ACC0 computes majority is open.
+Source: Crossref record (with abstract) of Williams, JACM 61(1), 2014, https://api.crossref.org/works/10.1145/2559903 ; Wikipedia "ACC0".
+Quote: "Previously, it was not known whether EXP^NP had depth-3 polynomial-size circuits made out of only MOD6 gates." ; "It is conjectured that ACC0 is unable to compute the majority function of its inputs."
+Status: verified (fetched) for the first; verified (secondary: Wikipedia) for the second. NP vs AC0[6] open in 2026: inference from the NQP frontier.
+
+Barrier notes (C): a June 2026 arXiv paper (arXiv:2606.12631) claims an unconditional natural-proofs barrier for AC0-natural proofs: snippet only here; verified separately by S0 (see LANDSCAPE.md).
+
+D. ACC0 AND THE ALGORITHMIC METHOD
+
+Claim D1. Williams (CCC 2011; JACM 61(1), 2014): NEXP does not have polynomial-size nonuniform ACC circuits, and E^NP does not have 2^{n^{o(1)}}-size ACC circuits, via faster-than-brute-force ACC satisfiability algorithms.
+Source: Crossref record (with abstract) https://api.crossref.org/works/10.1145/2559903
+Quote: NEXP "does not have nonuniform ACC circuits of polynomial size" ; E^NP "doesn't have nonuniform ACC circuits of 2" [exponent garbled].
+Status: verified (fetched). CCC 2011 venue verified (secondary: Wikipedia).
+
+Claim D2. Murray and Williams (STOC 2018): easy witness lemma for NP and NQP; for every fixed k, NQP does not have n^{log^k n}-size ACC o THR circuits.
+Source: ECCC TR17-188. https://eccc.weizmann.ac.il/report/2017/188/
+Quote: "for every fixed k, NQP does not have n^{log^k n}-size ACC o THR circuits." ; "This significantly extends the Easy Witness Lemma of Impagliazzo, Kabanets, and Wigderson".
+Status: verified (fetched). STOC 2018 venue verified (secondary: Wikipedia).
+
+Claim D3. Chen, Lyu and Williams (FOCS 2020): almost-everywhere lower bounds: f in E^NP not approximable by 2^{n^{epsilon}}-size ACC0 circuits for all large n; rigid matrices in P^NP for all but finitely many n.
+Source: ECCC TR20-150. https://eccc.weizmann.ac.il/report/2020/150/
+Quote: "We show there is a function f in E^NP such that for all sufficiently large input lengths n" ; "We construct rigid matrices in P^NP for all but finitely many inputs".
+Status: verified (fetched). FOCS 2020 venue: unverified (search snippet only).
+
+Claim D4. Chen and Ren (STOC 2020): for all constants a, NQP cannot be (1/2 + 2^{-log^a n})-approximated by 2^{log^a n}-size ACC0 o THR circuits.
+Source: ECCC TR20-010. https://eccc.weizmann.ac.il/report/2020/010/
+Quote: "We prove that for all constants a, NQP = NTIME[n^{polylog(n)}] cannot be (1/2 + 2^{-log^a n})-approximated" "by 2^{log^a n}-size ACC^0 of THR circuits".
+Status: verified (fetched). STOC 2020 venue: unverified (search snippet only).
+
+Claim D5 (barriers). The JACM abstract says nothing about barriers. Search-only: the 2024 Godel Prize citation says the result overcame relativization, natural proofs and algebrization [S0 verified this citation directly, see LANDSCAPE.md]; Vyas and Williams (ECCC TR24-113) give oracle constructions [verified by S0]; Chen, Hu, Ren, "New Algebrization Barriers to Circuit Lower Bounds" (arXiv:2511.14038, ITCS 2026) [verified by S0].
+Status: unverified (search snippet only) in this sheet; see S0 notes.
+
+Claim D6 (2022 to 2026). No result found that moves the ACC0 frontier below NQP. Dev Nag, ECCC TR26-167 (Sept 2026): a.e. near-cubic wire lower bound for E^NP against SYM o THR and THR o THR: unverified (search snippet only).
+
+E. TC0 / THRESHOLD CIRCUITS
+
+Claim E1. Kane and Williams (STOC 2016): first super-linear gate and super-quadratic wire lower bounds for depth-two linear threshold circuits with arbitrary weights: Andreev's function cannot be computed on a (1/2+epsilon) fraction of inputs by depth-two LTF circuits with o(epsilon^3 n^{3/2}/log^3 n) gates or o(epsilon^3 n^{5/2}/log^{7/2} n) wires.
+Source: arXiv:1511.07860. https://arxiv.org/abs/1511.07860
+Quote: "We prove the first super-linear gate lower bounds and the first super-quadratic wire lower bounds" "for depth-two linear threshold circuits with arbitrary weights".
+Status: verified (fetched). STOC 2016 venue: unverified (memory).
+
+Claim E2 (OPEN: TC0). Best known TC0 lower bounds are only slightly super-linear; Chen and Tell (STOC 2019) show n^{1+c^{-d}} wire bounds for small enough c would give TC0 != NC1; known only for c about 2.41.
+Source: ECCC TR18-199. https://eccc.weizmann.ac.il/report/2018/199/
+Quote: "The best-known lower bounds for the circuit class TC^0 are only slightly super-linear." ; "Lower bounds of the form n^{1+c^{-d}} against these functions are already known" "for a fixed c approx 2.41 that is too large to yield new lower bounds via our results."
+Status: verified (fetched).
+
+F. MONOTONE CIRCUITS
+
+Claim F1. Razborov (1985): super-polynomial monotone lower bounds for clique and n^{Omega(log n)} for perfect matching; Alon and Boppana (Combinatorica 1987) exponential for clique.
+Source: ECCC TR25-102 (quote); Semantic Scholar record DOI:10.1007/BF02579196 (title/venue/year).
+Quote: "This improves on the n^{Omega(log n)} lower bound of Razborov (1985)."
+Status: Razborov matching bound verified (fetched via TR25-102); Alon-Boppana numerical bound unverified (search snippet only).
+
+Claim F2. Cavalar, Kumar and Rossman (Algorithmica 2022): exp(n^{1/2-o(1)}) monotone circuit lower bound for an explicit function (Harnik-Raz function), improving exp(n^{1/3-o(1)}) of Andreev and Harnik-Raz; n^{Omega(k)} for k-CLIQUE up to k = n^{1/3-o(1)}.
+Source: arXiv:2012.03883. https://arxiv.org/abs/2012.03883
+Quote: "to obtain an exp(n^{1/2-o(1)}) lower bound on the monotone circuit size" ; "improving the previous best known exp(n^{1/3-o(1)}) due to Andreev and Harnik and Raz."
+Status: verified (fetched).
+
+Claim F3. Pitassi and Robere (STOC 2017): 2^{alpha N} lower bounds for an explicit monotone function in NP in monotone formulas, switching networks, span programs and comparator circuits (not general monotone circuits).
+Source: ECCC TR16-188. https://eccc.weizmann.ac.il/report/2016/188/
+Quote: "we prove size lower bounds of 2^{alpha N} for computing an explicit monotone function in NP" ; "monotone formulas, monotone switching networks, monotone span programs, and monotone comparator circuits".
+Status: verified (fetched). STOC 2017 venue: unverified (memory).
+
+Claim F5 (2025). Cavalar, Goos, Riazanov, Sofronova, Sokolov: perfect matching requires monotone circuits of size 2^{n^{Omega(1)}}.
+Source: ECCC TR25-102 (22 July 2025; Rev. 1 6 Nov 2025); arXiv:2507.16105. https://eccc.weizmann.ac.il/report/2025/102/
+Quote: "requires monotone circuits of size 2^{n^{Omega(1)}}" ; "This improves on the n^{Omega(log n)} lower bound of Razborov (1985)." ; "Our proof uses the standard approximation method together with a new sunflower lemma for matchings."
+Status: verified (fetched). Rao, ECCC TR26-129 (bipartite matching): unverified (search snippet only).
+
+Claim F6. Tardos (Combinatorica 1988): the monotone vs non-monotone gap is exponential.
+Source: Semantic Scholar record DOI:10.1007/BF02122563 (title/venue/year).
+Status: title/venue/year verified (fetched); content unverified (search snippet only).
+
+G. NEAR-MAXIMUM CIRCUIT LOWER BOUNDS AND RANGE AVOIDANCE
+
+Claim G1. Chen, Hirahara, Ren (STOC 2024): S_2E/1 contains a language of circuit complexity at least 2^n/n; same for Sigma_2E, (Sigma_2E cap Pi_2E)/1, ZPE^NP/1; previously only half-exponential bounds; corollary of a zero-error pseudodeterministic algorithm for range avoidance infinitely often.
+Source: ECCC TR23-144. https://eccc.weizmann.ac.il/report/2023/144/
+Quote: "with circuit complexity at least 2^n/n" ; "Previously, only "half-exponential" circuit lower bounds for these complexity classes were known".
+Status: verified (fetched). STOC 2024 venue: unverified (search snippet only).
+
+Claim G2. Zeyong Li (STOC 2024): single-valued FS_2P algorithm for Avoid for all input lengths; S_2E not in i.o.-SIZE[2^n/n].
+Source: arXiv:2310.17762; ECCC TR23-156. https://arxiv.org/abs/2310.17762
+Quote: "single-valued FS_2P algorithm for Avoid that works for all input size n."
+Status: verified (fetched).
+
+Claim G3. Korten (FOCS 2021): constructing a hard truth table is complete for APEPP under P^NP reductions.
+Source: arXiv:2106.00875. https://arxiv.org/abs/2106.00875
+Quote: "constructing a truth table of high circuit complexity is complete for APEPP under P^NP reductions".
+Status: verified (fetched).
+
+Claim G4. Ren, Santhanam, Wang (FOCS 2022): Avoid is APEPP-complete; circuit lower bounds for E^NP are equivalent to circuit-analysis algorithms with E^NP preprocessing.
+Source: ECCC TR22-048. https://eccc.weizmann.ac.il/report/2022/048/
+Quote: "circuit lower bounds for E^NP are equivalent to circuit-analysis algorithms with E^NP preprocessing."
+Status: verified (fetched).
+
+Claim G5 (2026). Ren and Williams (July 2026): near-maximum 2^n/n lower bound for E^{prMA}/1.
+Source: ECCC TR26-118. https://eccc.weizmann.ac.il/report/2026/118/
+Quote: "We prove a near-maximum (2^n/n) circuit lower bound for the complexity class" "corresponding to exponential time with access to a promise-MA oracle and one bit of advice."
+Status: verified (fetched). FOCS 2026 acceptance: unverified (search snippet only).
+
+OPEN (G). Super-polynomial circuit lower bounds for E^NP, NEXP, NP remain open (inference from the frontier).
+
+H. DEPTH-3 CIRCUITS
+
+Claim H1. Paturi, Pudlak, Zane (1997/1999): depth-3 circuits for parity need size Omega(n^{1/4} 2^{sqrt n}); best depth-3 explicit bound remains 2^{Theta(sqrt n)}.
+Status: unverified (search snippet only; CJTCS page not fetched).
+
+Claim H2. Valiant's depth-3 reduction (log-depth linear-size circuits as OR of 2^{epsilon n} n^{delta}-CNFs).
+Source: Golovnev, Kulikov, Williams arXiv:1811.04828.
+Quote: "the classical depth-3 reduction results of Valiant, which show that logarithmic-depth circuits of linear size can be computed by an OR of" 2^{epsilon n} n^{delta}-CNFs.
+Status: verified (fetched); Valiant 1977 original not fetched.
+
+Claim H3. Goos, Guan, Mosnoi (2023/2024): (9/5)^n-type lower bound for depth-3 bottom-fan-in-2 circuits for inner product; Gurumukhani, Kleber, Paturi, Rosin, Talebanfard (2026): matching upper bound.
+Source: arXiv:2601.04446. https://arxiv.org/abs/2601.04446
+Quote: inner product "can be computed by depth-3 bottom fan-in 2 circuits of size poly(n)(9/5)^n" "matching the lower bound of Goos, Guan, and Mosnoi (Inform. Comput.'24)".
+Status: verified (fetched).
+
+Claim H4 (2025). Riazanov, Sofronova, Sokolov: top-down lower bounds for a subclass of AC0[2] containing DNF-of-parities and depth-3 AC0.
+Source: ECCC TR25-024. https://eccc.weizmann.ac.il/report/2025/024/
+Quote: "We give lower bounds for the middle slice function, inner product function, and affine dispersers."
+Status: verified (fetched).
+
+J. OTHER 2025 AND 2026 ITEMS (search snippets unless stated)
+- "Formalizing PARITY Circuit Lower Bounds in Lean", arXiv:2609.24188 (Sept 2026): snippet here; verified by S0 directly.
+- Dev Nag TR26-167; Ben Lee Volk TR26-115; Ran Raz TR26-008 (verified by S0); Chen-Hu-Ren arXiv:2511.14038 (verified by S0); FOCS 2026 and STOC 2026 accepted-paper items: unverified.
+- Nothing found that improves 3.1n (general circuits), n^{3-o(1)} (formulas), NQP (ACC0), or slightly-super-linear (TC0) for explicit functions as of 2026-10-08.
+
+SUMMARY TABLE OF "BEST KNOWN" AS OF 2026-10-08
+General B_2 circuits, explicit function: 3.1n - o(n) (Li-Yang), verified.
+De Morgan formulas: n^3/(log^2 n log log n) (Tal 2014), verified; KRW open, verified.
+AC0: exp(Omega(n^{1/(d-1)})) for parity (Hastad 1986); AC0[p]: MOD_m hard unless m power of p (Razborov, Smolensky 1987), secondary; AC0[6] vs NP open, inference.
+ACC0: NQP not in ACC0 o THR of size n^{log^k n} (Murray-Williams 2018), verified; a.e. for E^NP (CLW 2020), verified; strong average-case for NQP (Chen-Ren 2020), verified.
+TC0: depth-2 LTF gates about n^{3/2}/log^3 n, wires about n^{5/2}/log^{7/2} n (Kane-Williams 2016), verified; no super-polynomial TC0 bound, verified via Chen-Tell.
+Monotone: exp(n^{1/2-o(1)}) explicit (CKR 2022), verified; matching 2^{n^{Omega(1)}} (2025), verified; 2^{alpha N} for monotone formulas/span programs/switching networks/comparator circuits (Pitassi-Robere 2017), verified.
+Near-maximum 2^n/n: S_2E/1 (CHR 2024), S_2E a.e. (Li 2024), E^{prMA}/1 (Ren-Williams 2026), all verified.
+Depth 3: 2^{Theta(sqrt n)} for parity (PPZ), unverified snippet; (9/5)^n for IP with bottom fan-in 2 (2024/2026), verified.

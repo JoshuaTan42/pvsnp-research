@@ -1,0 +1,410 @@
+VERIFIED FACT SHEET: FORMALIZED COMPLEXITY THEORY AND SAT-CERTIFIED SMALL-CASE LOWER BOUNDS
+Compiled 2026-10-08. Budget used: 33 WebSearch calls, 40 WebFetch calls.
+
+METHOD NOTES (read first)
+1. Every "Quote" below is a verbatim string returned by WebFetch from the cited URL. WebFetch returns extracts, not full pages, so where it reported that a detail was absent from the page I say so rather than guessing.
+2. The official Mathlib doc URLs https://leanprover-community.github.io/mathlib4_docs/Mathlib/Computability/TuringMachine.html and .../TMComputable.html and the raw GitHub sources at Mathlib/Computability/TuringMachine.lean and TMComputable.lean all returned HTTP 404 on 2026-10-08. The GitHub directory listing shows the Computability folder now contains a `TuringMachine` subdirectory, so the files appear to have been reorganized. A doc-gen mirror at florisvandoorn.com was fetched instead (snapshot version unknown).
+3. Springer chapter pages redirect to an authorization endpoint and could not be fetched; web.archive.org is blocked for this tool; infoscience.epfl.ch returned HTTP 405.
+4. Status labels used exactly as requested: "verified (fetched)", "verified (secondary: site)", "unverified (search snippet only)", "unverified (memory)".
+
+=====================================================================
+PART I: FORMALIZATION OF COMPUTATIONAL COMPLEXITY
+=====================================================================
+
+--- A. Lean 4 / Mathlib ---
+
+A1.
+- Claim: Mathlib's module Mathlib.Computability.TMComputable defines `Turing.FinTM2` (a bundled TM2 with finiteness conditions), `TM2Computable`, `TM2ComputableInTime`, and `TM2ComputableInPolyTime` (machine + polynomial time bound + proof the machine outputs f within time(input.length) steps); running time is the number of `step` calls; the only polytime computability result on the page is for the identity map (`idComputableInPolyTime`).
+- Source: Mathlib documentation, "Mathlib.Computability.TMComputable" (doc-gen mirror), https://florisvandoorn.com/BonnAnalysis/docs/Mathlib/Computability/TMComputable.html
+- Quote: "A Turing machine + a polynomial time function + a proof it outputs `f` in at most `time(input.length)` steps." and "To count the execution time of a Turing machine, we have decided to count the number of times the `step` function is used."
+- Status: verified (fetched; mirror of Mathlib doc-gen output, snapshot version unknown; official URL returned 404)
+
+A2.
+- Claim: No declaration named `comp` and no `proof_wanted` appears on the fetched TMComputable docs page, and a web search for the exact phrases "proof_wanted" and "TM2ComputableInPolyTime" returned no page containing both. I could not confirm that `proof_wanted TM2ComputableInPolyTime.comp` exists in current Mathlib; composition of polytime-computable functions is not proved on the fetched page.
+- Source: same page as A1; WebSearch query: "proof_wanted" "TM2ComputableInPolyTime" Mathlib
+- Quote: none from the page (the WebFetch report states that no declaration named comp or proof_wanted appears on the page)
+- Status: unverified (search snippet only) regarding the proof_wanted; the absence on the mirror page is verified (fetched)
+
+A3.
+- Claim: As of 2026-10-08 the Mathlib/Computability directory on GitHub lists subdirectories AkraBazzi, Primrec, TuringMachine and 18 top-level files (Ackermann, ContextFreeGrammar, DFA, Encoding, EpsilonNFA, Halting, Language, MyhillNerode, NFA, Partrec, PartrecBasis, PartrecCode, RE, RecursiveIn, Reduce, RegularExpressions, StateTransition, TuringDegree); no top-level TuringMachine.lean or TMComputable.lean is shown (the page has a "View all files" link so the listing may be truncated). A Mathlib PR (#42350, dated Aug 2026 in a search snippet) refers to a module Mathlib.Computability.TuringMachine.PostTuringMachine.
+- Source: https://github.com/leanprover-community/mathlib4/tree/master/Mathlib/Computability (fetched); https://github.com/leanprover-community/mathlib4/pull/42350 (search snippet only)
+- Quote: subdirectory names as listed: "AkraBazzi", "Primrec", "TuringMachine"
+- Status: verified (fetched) for the listing; unverified (search snippet only) for the PR module name
+
+A4.
+- Claim: The Mathlib Turing machine module (TM0, TM1, TM2, with the chain of simulations) could not be fetched; only a search-result description of the mirror page intro ("a sequence of simple machine languages" building up from Turing machines) was obtained, so I cannot quote its docstring.
+- Source: https://leanprover-community.github.io/mathlib4_docs/Mathlib/Computability/TuringMachine.html (HTTP 404 on 2026-10-08); mirror at https://florisvandoorn.com/BonnAnalysis/docs/Mathlib/Computability/TuringMachine.html (not fetched, budget exhausted)
+- Quote: none (page not fetched)
+- Status: unverified (search snippet only)
+
+A5.
+- Claim: The lean-dojo LeanMillenniumPrizeProblems README lists the P vs NP statement in Problems/PVersusNP/Millennium.lean, with solution targets `Millennium.ClayPVersusNP` (P = NP) or `Millennium.ClayPVersusNP.Formulations.NegativeBranch` (P ≠ NP), deliberately no aggregate disjunction declaration, a concrete finite-alphabet Turing-machine model with Cook's verifier definition, and a 2026-09 history entry recording a soundness fix: the certificate encoding previously made every language a member of NP. The README does not mention Mathlib's TM2ComputableInPolyTime.
+- Source: lean-dojo/LeanMillenniumPrizeProblems README, https://github.com/lean-dojo/LeanMillenniumPrizeProblems
+- Quote: "uses a concrete finite-alphabet Turing-machine model and Cook's verifier definition, with certificates that are strings over a finite alphabet." and "P versus NP certificate encoding fixed (every language was in NP)."
+- Status: verified (fetched)
+
+A6.
+- Claim: SamuelSchlesinger/complexitylib is a Lean 4 library built on Mathlib (pinned to Lean v4.35.0-rc3) whose README claims, all over a concrete multi-tape Turing-machine model and with no sorry or custom axioms: Arora-Barak multi-tape TMs (deterministic, nondeterministic, probabilistic); classes P, NP, BPP, PSPACE; Cook-Levin (SAT and 3SAT NP-complete); deterministic time hierarchy for clock-constructible bounds; Boolean circuits, P/poly and "P equals logspace-uniform P/poly"; and even the PCP theorem. These are README self-reports; the code was not audited here.
+- Source: https://github.com/SamuelSchlesinger/complexitylib
+- Quote: "A Lean 4 formalization of computational complexity theory, built on Mathlib." ; "Cook–Levin: SAT and 3SAT are NP-complete." ; "Deterministic time hierarchy for clock-constructible bounds." ; "The PCP theorem: NP = PCP(O(log n), O(1))."
+- Status: verified (fetched) that the README makes these claims
+
+A7.
+- Claim: Senellart and Gnatenko, "Descriptive Complexity in Lean: Completeness by First-Order Reductions" (arXiv 2609.18261, submitted 16 Sep 2026) presents a Lean library where decision problems are isomorphism-invariant predicates on finite structures, classes are defined logically, hardness is by first-order reductions, with 73 completeness results on 68 problems across 14 classes, NL = coNL and the Abiteboul-Vianu theorem proved inside the logic, plus unconditional separations such as FO(≤) ⊊ FO(≤, TC), and bridges to (non)deterministic TM models.
+- Source: https://arxiv.org/abs/2609.18261
+- Quote: "Hardness is shown by first-order reductions from a known hard problem."
+- Status: verified (fetched)
+
+A8.
+- Claim: The Reservoir package khanukov/pnp3 ("P vs NP: Lean Formalization (Honest Status)") explicitly states there is no unconditional in-repo theorem P != NP; both of its tracks terminate at an unproved target `ComplexityInterfaces.NP_not_subset_PpolyDAG`, an earlier support-bounds route was formally refuted (`FormulaSupportRestrictionBoundsPartial -> False`), with 0 axioms and 0 sorry in pnp3/pnp4 (builds on Lean v4.22.0-rc2).
+- Source: https://reservoir.lean-lang.org/@khanukov/pnp3
+- Quote: "There is still **no unconditional in-repo theorem** `P != NP`." and "They prove neither `P != NP` nor `NP_not_subset_PpolyDAG` unconditionally."
+- Status: verified (fetched)
+
+A9.
+- Claim: Other Lean 4 complexity-related projects surfaced only in search snippets: DominikPeters/HardnessReductionsLean (machine-checked NP-hardness reductions such as SAT to 3SAT and SAT to CLIQUE, by design without Turing machines or formal P/NP); a Reservoir package Mintpath/p_ne_np and other self-claimed P ≠ NP packages (not audited); arXiv 2604.07406 (Apr 2026) with a Lean 4 repo "On-Formally-Undecidable-Propositions-of-NP" which asserts that no Lean library models computation with complexity bounds (this conflicts with A6 and predates complexitylib's July 2026 Reservoir release); and a lean-lang.org evaluation problem page stating Mathlib has no theorem connecting TM2Computable with partial recursive functions.
+- Source: https://github.com/DominikPeters/HardnessReductionsLean/ ; https://reservoir.lean-lang.org/@Mintpath/p_ne_np/dependencies ; https://arxiv.org/pdf/2604.07406 ; https://lean-lang.org/eval/problems/turing_recursive_equiv/
+- Quote: none (pages not fetched)
+- Status: unverified (search snippet only)
+
+--- B. Coq ---
+
+B1.
+- Claim: Gäher and Kunze mechanised the Cook-Levin theorem (NP-completeness of SAT) in Coq, using the call-by-value λ-calculus L as the model of computation for time complexity and NP, with TMs as an intermediate problem in the reduction chain; they claim this was the first complexity-theory result mechanised relative to a concrete computational model.
+- Source: Lennard Gäher and Fabian Kunze, "Mechanising Complexity Theory: The Cook-Levin Theorem in Coq", 12th International Conference on Interactive Theorem Proving (ITP 2021), LIPIcs Vol. 193, pp. 20:1-20:18, published 2021-06-21, https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ITP.2021.20
+- Quote: "We mechanise the Cook-Levin theorem, i.e. the NP-completeness of SAT, in the proof assistant Coq." and "To the best of our knowledge, this is the first result in computational complexity theory" "that has been mechanised with respect to any concrete computational model."
+- Status: verified (fetched)
+
+B2.
+- Claim: Forster, Kunze and Roth (POPL 2020) proved, with an accompanying Coq formalisation, that the weak call-by-value λ-calculus is reasonable for both time and space: TMs and the calculus simulate each other with polynomial time overhead and constant-factor space overhead (measures: beta-reduction steps and size of the largest term).
+- Source: Yannick Forster, Fabian Kunze, Marc Roth, "The Weak Call-By-Value λ-Calculus is Reasonable for Both Time and Space", 47th ACM SIGPLAN Symposium on Principles of Programming Languages (POPL 2020), New Orleans, ACM, January 2020, https://www.ps.uni-saarland.de/Publications/details/ForsterKunzeRoth:2019:wcbv-reasonable.html (Coq formalisation link on the page: https://www.ps.uni-saarland.de/extras/wcbv-reasonable/)
+- Quote: "Turing machines and the weak call-by-value λ-calculus can simulate each other within a polynomial overhead in time and a constant factor overhead in space"
+- Status: verified (fetched)
+
+B3.
+- Claim: The Coq Library of Complexity (uds-psl/coq-library-complexity, Saarland, Fabian Kunze) contains directories for basic complexity notions over L, a `HierarchyTheorem` directory (the Time Hierarchy Theorem), `NP` (NP hardness/completeness), `NP/SAT` (Cook-Levin), `L/TM` and `TM` (TM computability and resource analysis), and compiles only with Coq 8.16 and the Coq Library of Undecidability Proofs 1.0.1.
+- Source: https://github.com/uds-psl/coq-library-complexity (README)
+- Quote: "`HierarchyTheorem`: the Time Hierarchy Theorem" and "Be careful that this branch only compiles under Coq 8.16 and with the Coq Library of Undecidability Proofs, version 1.0.1."
+- Status: verified (fetched)
+
+B4.
+- Claim: Related Coq infrastructure appears only in search snippets: Forster, Kunze, Smolka, Wuttke, "A Mechanised Proof of the Time Invariance Thesis for the Weak Call-By-Value λ-Calculus" (ITP 2021, LIPIcs.ITP.2021.19), and Forster, Kunze, Wuttke, "Verified Programming of Turing Machines in Coq" (CPP 2020). A 2019 arXiv paper on certifying extraction (arXiv 1904.11818) listed a time hierarchy theorem for L as a goal; the library README (B3) now lists a HierarchyTheorem directory.
+- Source: https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ITP.2021.19 ; https://www.ps.uni-saarland.de/Publications/details/ForsterEtAl:2019:VerifiedTMs.html ; https://arxiv.org/pdf/1904.11818
+- Quote: none (pages not fetched)
+- Status: unverified (search snippet only)
+
+B5.
+- Claim (absence): No Coq formalization of a circuit lower bound or a proof-complexity lower bound (Haken, switching lemma, Razborov-Smolensky, monotone) was found. Searches: "formalized Haken resolution lower bound pigeonhole principle proof assistant Coq OR Isabelle OR Lean switching lemma formalization" and "formalization Razborov OR monotone circuit lower bound OR Smolensky Lean OR Coq OR Isabelle machine-checked proof 2025 OR 2026".
+- Source: n/a
+- Quote: n/a
+- Status: absence reported after the searches listed; not a proof of non-existence
+
+--- C. Isabelle ---
+
+C1.
+- Claim: Frank J. Balbach's AFP entry "The Cook-Levin theorem" (dated January 8, 2023) formalizes deterministic multi-tape Turing machines, P and NP, polynomial-time many-one reductions, SAT, and NP-hardness of SAT via two-tape oblivious TMs, following Arora and Barak. (Search snippets show the AFP document regenerated with dates Feb 4, 2026 and June 2, 2026.)
+- Source: Frank J. Balbach, "The Cook-Levin theorem", Archive of Formal Proofs, January 8, 2023, https://www.isa-afp.org/entries/Cook_Levin.html
+- Quote: "every polynomial-time computation can be performed by a two-tape oblivious Turing machine."
+- Status: verified (fetched)
+
+C2.
+- Claim: René Thiemann's AFP entry "Clique is not solvable by monotone circuits of polynomial size" (AFP, May 8, 2022) is an Isabelle/HOL formalization of a concrete superpolynomial monotone circuit lower bound for Clique, following a proof by Gordeev, with bound (n^(1/7))^(n^(1/8)) for the fixed clique size s = n^(1/4). The entry page does not mention Razborov. (A search snippet says the formalization dropped Gordeev's flawed non-monotone claims and keeps only the monotone case.)
+- Source: René Thiemann, "Clique is not solvable by monotone circuits of polynomial size", Archive of Formal Proofs, May 8, 2022, https://isa-afp.org/entries/Clique_and_Monotone_Circuits.html
+- Quote: "no monotone circuit of a size that is polynomial in $n$ can solve Clique." and "This entry provides an Isabelle/HOL formalization of a concrete lower bound"
+- Status: verified (fetched)
+
+C3.
+- Claim: Other AFP entries on TM running time surfaced in search: "Multitape Alphabet Enlargement" (a verified linear speedup theorem for deterministic and nondeterministic multitape machines, after Hartmanis-Stearns and Hopcroft-Ullman), "Multitape Alphabet Reduction" (reducing any tape alphabet to four symbols) and "Multitape Alphabet Roundtrip" (affine time bounds). Searching isa-afp.org for "Kolmogorov complexity" returned no AFP entry; searching for complexity classes returned only Cook_Levin.
+- Source: https://isa-afp.org/entries/Multitape_Alphabet_Enlargement.html ; https://isa-afp.org/entries/Multitape_Alphabet_Reduction.html ; https://isa-afp.org/entries/Multitape_Alphabet_Roundtrip.html
+- Quote: none (pages not fetched)
+- Status: unverified (search snippet only); Kolmogorov absence in AFP: searched, none found
+
+C4.
+- Claim: AFP entry "Formalization of Lower-Bound Certificates for Optimal Classical Planning" (Dmitriy Traytel, 2026; copies dated June 13 / June 28 / July 14, 2026) formalizes pseudo-Boolean lower-bound certificates (a PB circuit plus cutting-planes-with-reification proofs) in Isabelle/HOL, so that a checked certificate proves no plan costs less than bound B. This is the only 2026 Isabelle item found that machine-checks cutting-planes-style lower-bound certificates; it is about planning, not circuits.
+- Source: https://devel.isa-afp.org/entries/Lower_Bound_Certificates_Planning.html ; https://isa-afp.org/browser_info/current/AFP/Lower_Bound_Certificates_Planning/outline.pdf
+- Quote: none (pages not fetched)
+- Status: unverified (search snippet only)
+
+--- D. Relativization / oracles ---
+
+D1.
+- Claim (absence): No formalization of the Baker-Gill-Solovay theorem, or of oracle Turing machines with time bounds, was found in Coq, Isabelle or Lean. Search: "formalized Baker-Gill-Solovay OR oracle Turing machine relativization formalization Coq OR Isabelle OR Lean". The closest items are computability-level only: Forster, Kirst and Mück's synthetic oracle computability and Turing reducibility in Coq, and Konečný, Steinberg and Thies' "Continuous and monotone machines" (MFCS 2020, Coq/Incone), neither of which is resource-bounded. A Jan 2026 arXiv preprint "Diagonalization Without Relativization" (arXiv 2601.09702) is not a proof-assistant work.
+- Source: https://arxiv.org/abs/2005.01624 ; https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.MFCS.2020.56 ; https://arxiv.org/pdf/2601.09702
+- Quote: none (pages not fetched)
+- Status: absence after search; related items unverified (search snippet only)
+
+--- E. Formalized lower bounds ---
+
+E1.
+- Claim: Saint Wesonga, "Formalizing PARITY Circuit Lower Bounds in Lean" (arXiv 2609.24188, submitted 21 Sep 2026) formalizes Håstad's PARITY lower bound via the switching lemma: for fixed d ≥ 2, depth-d formulas and DAG circuits for PARITY need size exp(Ω_d(n^(1/(d-1)))), hence PARITY is not in nonuniform AC0; it also builds a polynomial-size log-depth formula family for PARITY (NC1 not contained in AC0 for the formalized models). Checked with Lean 4.33.1 and Mathlib 4.33.1. Single-author preprint; no peer-reviewed venue found. (A search snippet gives the formalized switching lemma as: for width-w DNFs under random restrictions leaving σn variables, σ < 1/5, Pr[decision-tree depth > d] ≤ (10σw)^d.)
+- Source: https://arxiv.org/abs/2609.24188
+- Quote: "using the switching lemma." and "implies that PARITY is not in nonuniform AC0."
+- Status: verified (fetched)
+
+E2.
+- Claim: Kamil Braun, "An exponential lower bound for the bit pigeonhole principle in resolution over parities" (arXiv 2609.23015, submitted 19 Sep 2026) proves that every DAG-like Res(⊕) refutation of the bit pigeonhole principle with n+1 pigeons and n = 2^ℓ holes (ℓ ≥ 32) has more than exp(n/(32768 ℓ^2)) clauses, with the main theorem, a general sufficient condition, and all dependencies formalized in Lean 4; the abstract states the proof was developed with substantial AI assistance.
+- Source: https://arxiv.org/abs/2609.23015
+- Quote: "The main theorem, this condition, and all their dependencies are formalized in Lean 4," and "every statement links to its formal proof."
+- Status: verified (fetched)
+
+E3.
+- Claim: Monotone circuit lower bound for Clique is formalized in Isabelle/HOL (see C2). This is the only machine-checked monotone lower bound found.
+- Source: https://isa-afp.org/entries/Clique_and_Monotone_Circuits.html
+- Quote: "no monotone circuit of a size that is polynomial in $n$ can solve Clique."
+- Status: verified (fetched)
+
+E4.
+- Claim (absence): No machine-checked proof of Haken's exponential resolution lower bound for PHP (plain resolution), of Razborov-Smolensky (AC0[p]), or of Razborov's original monotone bound was found in any proof assistant. The only related item is Müller and Pich (2017) formalizing Razborov-Smolensky and monotone bounds inside the bounded-arithmetic theory APC1 (a logic-level formalization, not a proof assistant), and arXiv 2608.08760 (Aug 2026) doing Smolensky's bound in a weak formal theory. Searches as in B5.
+- Source: https://eccc.weizmann.ac.il/report/2017/144 ; https://arxiv.org/pdf/2608.08760
+- Quote: none (pages not fetched)
+- Status: absence after search; related items unverified (search snippet only)
+
+E5.
+- Claim: Forster, Kunze and Lauermann, "Synthetic Kolmogorov Complexity in Coq" (ITP 2022, LIPIcs Vol. 237, pp. 12:1-12:19) gives a constructive, machine-checked treatment of Kolmogorov complexity assuming an abstract universal function (no concrete machine model), proving that nonrandom numbers form a simple predicate, undecidability of random/nonrandom numbers, and uncomputability of Kolmogorov complexity.
+- Source: https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ITP.2022.12
+- Quote: "a generalised, constructive, and machine-checked approach to Kolmogorov complexity" and "All our results are machine-checked by the Coq proof assistant."
+- Status: verified (fetched)
+
+E6.
+- Claim: Other Kolmogorov formalizations found only in snippets: Catt and Norrish, "On the formalisation of Kolmogorov complexity" (CPP 2021, HOL4: uncomputability, invariance theorem, Kraft inequalities); and a Lean 4 Reservoir package AlexeyMilovanov/kolmogorov_complexity ("Formalized Algorithmic Information Theory in Lean 4", v0.1.0 dated July 26, 2026, built on Mathlib's computability, covering invariance, incompressibility, uncomputability, prefix-free machines and Kraft inequalities).
+- Source: https://trustworthy.systems/publications/abstracts/Catt_Norrish_21.abstract ; https://reservoir.lean-lang.org/@AlexeyMilovanov/kolmogorov_complexity
+- Quote: none (pages not fetched)
+- Status: unverified (search snippet only)
+
+E7.
+- Claim: Time hierarchy theorem: machine-checked versions exist in Lean (complexitylib README, A6: deterministic time hierarchy for clock-constructible bounds) and in Coq (coq-library-complexity `HierarchyTheorem` directory, B3). No Isabelle formalization of a time hierarchy theorem was found (search: formalized "time hierarchy theorem" Coq OR Isabelle OR Lean).
+- Source: https://github.com/SamuelSchlesinger/complexitylib ; https://github.com/uds-psl/coq-library-complexity
+- Quote: "Deterministic time hierarchy for clock-constructible bounds." (complexitylib README) ; "`HierarchyTheorem`: the Time Hierarchy Theorem" (Coq README)
+- Status: verified (fetched) for Lean and Coq README claims; Isabelle absence after search
+
+E8.
+- Claim: Communication complexity: an arXiv preprint "Beyond the Library: An Agentic Framework for Autoformalizing Research Mathematics" (arXiv 2606.31134, 2026) reports Lean formalizations that re-derive Chung's product theorem and the Kushilevitz-Nisan log-rank lower bound and a counterexample to a strong deterministic direct-sum conjecture, with no sorry and only standard axioms; a Reservoir package morganfshirley/CommComp is an early-stage Lean formalization of communication complexity. No Coq or Isabelle communication-complexity lower bound was found.
+- Source: https://arxiv.org/pdf/2606.31134 ; https://reservoir.lean-lang.org/@morganfshirley/CommComp
+- Quote: none (pages not fetched)
+- Status: unverified (search snippet only)
+
+E9.
+- Claim (summary of what does NOT exist, as far as found): no formalized superpolynomial lower bound for general (non-monotone, unbounded-depth) Boolean circuits exists in any proof assistant; the machine-checked lower bounds found are: PARITY not in AC0 (Lean, preprint, E1), bit-PHP in Res(⊕) (Lean, preprint, E2), Clique vs monotone circuits (Isabelle AFP, C2), Kolmogorov incompressibility/uncomputability (Coq, HOL4, Lean), and the log-rank communication bound (Lean, snippet only). Searches used: those in B5, D1, E4 plus "Kolmogorov complexity Isabelle AFP OR communication complexity formalized Lean OR Coq OR Isabelle lower bound machine-checked".
+- Source: n/a
+- Quote: n/a
+- Status: absence after search
+
+--- F. Verified SAT proof checkers, Lean's LRAT checker ---
+
+F1.
+- Claim: The LeanSAT package (leanprover/LeanSAT) provided a verified LRAT certificate checker to import UNSAT proofs from solvers such as CaDiCaL, the `bv_decide` tactic (SAT solver call plus LRAT verification) and `bv_check` (reads a precomputed LRAT proof from a file so that no solver installation is needed); the package was merged into Lean 4 core as `Std.Tactic.BVDecide` with the nightly-2024-08-29 release, and only CaDiCaL compatibility is guaranteed.
+- Source: Reservoir package page "LeanSAT (deprecated)", https://reservoir.lean-lang.org/@leanprover/LeanSAT
+- Quote: "A verified LRAT certificate checker, used to import UNSAT proofs generated by high performance SAT solvers, like CaDiCal." ; "This package has been merged into Lean 4 core as `Std.Tactic.BVDecide`" ; "the LRAT proof is read from `file.lrat`." ; "This allows users that do not have a SAT solver installed to verify proofs."
+- Status: verified (fetched)
+
+F2.
+- Claim: Lean 4.12.0 (Oct 2024) release notes describe bv_decide: BitVec/Bool goals are bitblasted to SAT, an external solver (CaDiCaL, shipped with Lean) refutes them, and the LRAT proof is checked by a checker whose soundness is proven in Lean; because the proofs use the `Lean.ofReduceBool` axiom, the Lean compiler is part of the trusted code base. Lean API docs exist for Std.Tactic.BVDecide.LRAT.Checker (checker and soundness theorem), Lean.Elab.Tactic.BVDecide (pipeline overview) and Std.Tactic.BVDecide.Syntax (bv_check options).
+- Source: https://lean-lang.org/doc/reference/latest/releases/v4.12.0/ ; https://lean-lang.org/doc/api/Std/Tactic/BVDecide/LRAT/Checker.html ; https://lean-lang.org/doc/api/Lean/Elab/Tactic/BVDecide.html ; https://lean-lang.org/doc/api/Std/Tactic/BVDecide/Syntax.html (the blog post https://lean-lang.org/blog/2024-10-3-lean-4120 redirected to web.archive.org, which this tool cannot fetch)
+- Quote: none (pages not fetched)
+- Status: unverified (search snippet only)
+
+F3.
+- Claim: Stefan Szeider's lrat-catcher (arXiv 2607.00815; v1 1 Jul 2026 titled "LRAT-Catcher: Importing SAT Solver Certificates into Lean 4 by Reflection" per search; v2 7 Sep 2026 retitled "Streaming LRAT Certificates into Lean Theorems") turns an LRAT certificate for a CNF into a Lean theorem using Lean core's LRAT checker made resumable, checks certificates as a stream while the solver runs (memory depends on the live clause set, not certificate size), supports cube-and-conquer and preprocessing-derived formulas, and imported 174 TB of empty-hexagon certificates into Lean. Code (per search snippet): github.com/leansolving/lrat-catcher.
+- Source: https://arxiv.org/abs/2607.00815
+- Quote: "We propose the tool lrat-catcher, which turns a certificate into a Lean theorem." ; "It checks the certificate as a stream while the solver is still running." ; "Our tool supports cube-and-conquer and formulas derived by preprocessing." ; "A larger scaling experiment on the empty-hexagon problem shows that 174 TB of certificates can be imported into Lean via streaming."
+- Status: verified (fetched)
+
+F4.
+- Claim: Szeider's PBLean (arXiv 2602.08692, v1 9 Feb 2026, v2 2 Apr 2026) imports VeriPB pseudo-Boolean proof certificates into Lean 4 by reflection with a checker proved sound in Lean and run as compiled code, supporting all VeriPB kernel rules including cutting planes, proof-by-contradiction subproofs and redundance-based symmetry breaking, scaling to tens of thousands of steps.
+- Source: https://arxiv.org/abs/2602.08692
+- Quote: "We present PBLean, a method for importing VeriPB pseudo-Boolean (PB) proof certificates into Lean 4." ; "Our checker supports all VeriPB kernel rules, including cutting-plane derivations," ; "Our method scales to proofs with tens of thousands of steps,"
+- Status: verified (fetched)
+
+F5.
+- Claim: Direct answer to the key question: yes, a Lean 4 project can turn an UNSAT certificate into a Lean theorem without trusting the solver. Two routes exist: (i) Lean core's `Std.Tactic.BVDecide` with `bv_check "file.lrat"` for BitVec/Bool goals (F1), and (ii) for arbitrary DIMACS CNF, lrat-catcher (F3), which reuses Lean core's verified LRAT checker. A worked example is Florath's K_8(4,2) = 23 paper, where two Lean-checked LRAT refutations of stored CNF instances are replayed inside Lean with no external SAT solver. Caveat (snippet only): the trusted base includes Lean's compiler through the `Lean.ofReduceBool` axiom.
+- Source: https://reservoir.lean-lang.org/@leanprover/LeanSAT ; https://arxiv.org/abs/2607.00815 ; https://arxiv.org/abs/2606.16688
+- Quote: "Two Lean-checked Linear RAT (LRAT) refutations of stored conjunctive-normal-form (CNF) instances" and "with no external SAT solver used during proof replay." (K_8 abstract)
+- Status: verified (fetched) for the three cited pages; the ofReduceBool caveat is unverified (search snippet only)
+
+F6.
+- Claim: cake_lpr (Tan, Heule, Myreen) is an LPR/LRAT proof checker produced with the verified CakeML compiler; the GitHub repository ships pre-compiled binaries built from stated HOL4 and CakeML commits and now natively supports binary LRAT/LPR proof files. The TACAS 2021 paper (DOI 10.1007/978-3-030-72013-1_12) and the journal version "Verified Propagation Redundancy and Compositional UNSAT Checking in CakeML" (STTT) could only be seen as search snippets (PMC open-access copy exists).
+- Source: https://github.com/tanyongkiam/cake_lpr (fetched) ; https://pmc.ncbi.nlm.nih.gov/articles/PMC7984575 (search only) ; https://github.com/CakeML/cakeml/tree/master/examples/lpr_checker (fetched: "An LPR checker built on CakeML.")
+- Quote: "pre-compiled versions of LPR proof checkers produced using the CakeML compiler" and "cake_lpr now natively supports LRAT/LPR proof files in binary format."
+- Status: verified (fetched) for the repository claims; paper abstract unverified (search snippet only)
+
+F7.
+- Claim: GRAT (Peter Lammich): the unverified `gratgen` converts DRAT certificates to GRAT, which the verified `gratchk` checks; the soundness proof in Isabelle/HOL covers the actual implementation down to the integer array representing the formula; the page claims GRAT is faster than drat-trim and than the verified LRAT tool of its time.
+- Source: GRAT toolchain page, https://www21.in.tum.de/~lammich/grat/
+- Quote: "The unverified certificate generator `gratgen` converts a DRAT certificate." ; "We have formally proved the soundness of GRATchk in the" Isabelle/HOL ; "The proof covers the actual implementation of GRATchk."
+- Status: verified (fetched)
+
+F8.
+- Claim: ACL2 checkers: Heule, Hunt, Kaufmann and Wetzler, "Efficient, Verified Checking of Propositional Proofs" (ITP 2017) built progressively faster LRAT checkers verified in ACL2; the earlier ACL2 checker needed about a week on a proof a C tool checked in about 1.5 seconds. Lammich's Isabelle-LLVM LRAT checker (IJCAR 2024, Springer 10.1007/978-3-031-63498-7_26) is reported to match the unverified lrat-trim in speed with correctness proved down to LLVM code.
+- Source: https://www.cs.utexas.edu/~marijn/publications/itp17.pdf ; https://www.cs.utexas.edu/~kaufmann/papers/lrat-preprint/index.html ; https://link.springer.com/chapter/10.1007/978-3-031-63498-7_26
+- Quote: none (pages not fetched)
+- Status: unverified (search snippet only)
+
+--- G. Proof by SAT with checked certificates ---
+
+G1.
+- Claim: Heule, Kullmann and Marek solved the Boolean Pythagorean triples problem (2016) by cube-and-conquer on 800 cores in about 2 days, producing and verifying a DRAT proof of almost 200 terabytes, with a 68 GB compressed certificate from which the proof can be reconstructed.
+- Source: Marijn J. H. Heule, Oliver Kullmann, Victor W. Marek, "Solving and Verifying the boolean Pythagorean Triples problem via Cube-and-Conquer", arXiv 1605.00723 (SAT 2016), https://arxiv.org/abs/1605.00723
+- Quote: "produced and verified a proof in the DRAT format, which is almost 200 terabytes in size." and "solve the problem on a cluster with 800 cores in about 2 days."
+- Status: verified (fetched)
+
+G2.
+- Claim: Heule's "Schur Number Five" (arXiv 1711.08076, AAAI 2018) established S(5) = 160 via SAT, with a two-petabyte proof certified by a formally verified proof checker (search snippets: ACL2 checker, about 36 CPU years of checking).
+- Source: Marijn J.H. Heule, "Schur Number Five", https://arxiv.org/abs/1711.08076
+- Quote: "We obtained the solution, $n = 160$, by encoding the problem into propositional logic" and "The proof is two petabytes in size and was certified using a formally verified proof checker"
+- Status: verified (fetched); checker identity and 36 CPU-years unverified (search snippet only)
+
+G3.
+- Claim: Brakensiek, Heule, Mackey and Narváez resolved Keller's conjecture in dimension 7 by SAT with symmetry breaking, showing none of the Keller graphs contains a clique of size 128 (and verifying the dimension-8 counterexample); the abstract page gives no proof sizes (search snippets: CaDiCaL DRAT proofs trimmed by DRAT-trim and checked by ACL2check).
+- Source: Joshua Brakensiek, Marijn Heule, John Mackey, David Narváez, "The Resolution of Keller's Conjecture", arXiv 1910.03740 (IJCAR 2020 / JAR), https://arxiv.org/abs/1910.03740
+- Quote: "We apply satisfiability solving combined with symmetry-breaking techniques to determine that no such clique exists."
+- Status: verified (fetched); checker details unverified (search snippet only)
+
+G4.
+- Claim: Heule and Scheucher proved h(6) = 30 (every 30-point set in general position contains an empty hexagon) via a compact SAT encoding and search-space partitioning; the abstract page gives no proof size or checker (search snippets: about 17,300 CPU hours). The result was then formally verified in Lean: Subercaseaux, Nawrocki, Gallicchio, Codel, Carneiro, Heule, "Formal Verification of the Empty Hexagon Number", ITP 2024, LIPIcs Vol. 309, 35:1-35:19 (snippet only), and lrat-catcher later imported 174 TB of empty-hexagon certificates into Lean (F3, fetched).
+- Source: Marijn J.H. Heule, Manfred Scheucher, "Happy Ending: An Empty Hexagon in Every Set of 30 Points", arXiv 2403.00737 (TACAS 2024), https://arxiv.org/abs/2403.00737 ; ITP 2024 paper https://arxiv.org/abs/2403.17370 and https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ITP.2024.35 (search only)
+- Quote: "We establish the exact bound: Every 30-point set in the plane in general position contains an empty hexagon."
+- Status: verified (fetched) for the SAT result; the Lean verification paper is unverified (search snippet only)
+
+G5.
+- Claim (2026): Subercaseaux and Przybocki, "A SAT Attack on Tarski's High School Algebra Problem" (arXiv 2608.08421, v1 9 Aug 2026, v2 2 Sep 2026) prove by SAT that the smallest countermodels have size 12 (Zhang had shown none below 11), count exactly 8,957,952 countermodels on 12 elements up to isomorphism, outperform Mace4 and SEM, and certify the main result in Lean via autoformalization (search snippets: the Lean unsatisfiability import used lrat-catcher, with a roughly 2.2 GB text proof file imported in about 757 seconds).
+- Source: https://arxiv.org/abs/2608.08421
+- Quote: "Using SAT, we prove that the smallest countermodels are of size 12, as conjectured by Burris and Yeats." and "using autoformalization, we prove the correctness of our main result in Lean."
+- Status: verified (fetched); lrat-catcher usage and file sizes unverified (search snippet only)
+
+G6.
+- Claim (2026): Andreas Florath, "A Lean-Certified Proof of K_8(4, 2) = 23" (arXiv 2606.16688, 15 Jun 2026) certifies the exact covering-code value: an explicit 23-word radius-two code in (Fin 8)^4 for the upper bound, a fiber-counting argument excluding at most 21 words, and two Lean-checked LRAT refutations of stored CNF instances for the 22-word case, all checked inside Lean with no external SAT solver at replay.
+- Source: https://arxiv.org/abs/2606.16688
+- Quote: "The lower bound excludes covers with at most 22 words." and "Two Lean-checked Linear RAT (LRAT) refutations of stored conjunctive-normal-form (CNF) instances"
+- Status: verified (fetched)
+
+G7.
+- Claim (2026, snippet): Siddique and Mian, "Machine-Checked Certificates for the Geometric Half of the Minimum Kochen-Specker Bound" (arXiv 2607.26413, 29 Jul 2026) produce exact rational non-embeddability certificates for all 291 source lines (180 distinct graphs) in the published order-10 to order-13 blocking lists behind the 24-vector lower bound, verified by two independently built checkers, one a Lean 4 program; the combinatorial half (Li, Bright, Ganesh, IJCAI 2024) already emits DRAT proofs. Also in snippets: Lam's problem (arXiv 2012.04715) with about 110 TiB of DRAT proofs and roughly 33,000 core hours of verification; Norine's conjecture n = 8 via cube-and-conquer (arXiv 2511.08386, Nov 2025). No 2025-2026 result with a multi-petabyte checked proof was found.
+- Source: https://arxiv.org/pdf/2607.26413 ; https://arxiv.org/pdf/2012.04715 ; https://arxiv.org/abs/2511.08386v1
+- Quote: none (pages not fetched)
+- Status: unverified (search snippet only)
+
+=====================================================================
+PART II: SAT-BASED SMALL-CASE LOWER BOUNDS AND EXACT SYNTHESIS
+=====================================================================
+
+--- H. Exact synthesis and circuit-size work ---
+
+H1.
+- Claim: Kojevnikov, Kulikov and Yaroslavtsev (SAT 2009) report preliminary experiments using SAT solvers to find efficient circuits over binary bases, giving upper bounds for functions with a constant number of inputs, automatically found general upper bounds, focusing on MOD functions, including a circuit of size 3n + c over the full binary basis for MOD3 on n inputs. The abstract page gives no table of exact small-n sizes.
+- Source: Arist Kojevnikov, Alexander S. Kulikov, Grigory Yaroslavtsev, "Finding efficient circuits using SAT-solvers", Theory and Applications of Satisfiability Testing (SAT 2009), LNCS vol. 5584, pp. 32–44, DOI 10.1007/978-3-642-02777-2_5, https://pureportal.spbu.ru/ru/publications/finding-efficient-circuits-using-satsolvers(748ac3d9-23ca-4466-a3d6-39c6c91a7e7d).html
+- Quote: "preliminary results of experiments with finding efficient circuits (over binary bases)" and "a circuit of size 3n+c over the full binary basis computing MOD 3 n."
+- Status: verified (fetched)
+
+H2.
+- Claim: Knuth (TAOCP Vol. 4A, Section 7.1.2 "Boolean Evaluation"; computation done in 2005) determined the minimum cost (two-input gates cost 1, NOT free) of all 616,126 NPN classes of 5-input one-output functions by inductive construction rather than brute force; six classes were initially left at 11 or 12 gates, and extra computation showed five need 11, so exactly one class (search snippet: truth table 0x169ae443) needs 12 gates, the maximum for 5 inputs. A later cp4space re-run reportedly matched Knuth's Table 2 of 7.1.2 (search snippet). For 4-variable functions the maximum minimum cost is 7 gates: unverified (memory).
+- Source: cp4space blog, "Five-input Boolean circuits" (2019), https://cp4space.hatsya.com/2019/05/28/five-input-boolean-circuits/ (Knuth's own text not fetched; TAOCP 4A is not online)
+- Quote: "Eventually, he had solved all but 6 NPN classes of functions (each of which he knew required either 11 or 12 gates)." and "By some extra computational horsepower, he eventually solved these last holdouts, finding that all but one could be managed in 11 gates, and therefore the last one required exactly 12."
+- Status: verified (secondary: cp4space.hatsya.com); 4-variable maximum of 7: unverified (memory)
+
+H3.
+- Claim: Kulikov, "Improving Circuit Size Upper Bounds Using SAT-Solvers" is a DATE 2018 paper (not 2022) discussing how SAT solvers construct optimal circuits for functions on a moderate number of variables and the current frontier of what state-of-the-art solvers can and cannot find.
+- Source: Alexander S. Kulikov, "Improving Circuit Size Upper Bounds Using SAT-Solvers", DATE 2018, https://past.date-conference.com/proceedings-archive/2018/html/1066.html
+- Quote: "In this paper, we discuss how SAT‐solvers can be used for constructing optimal circuits" "for functions on moderate number of variables."
+- Status: verified (fetched)
+
+H4.
+- Claim: Kulikov, Pechenev and Slezkin, "SAT-based Circuit Local Improvement" (arXiv 2102.12579, v3 27 Apr 2022; MFCS 2022, LIPIcs.MFCS.2022.67 per search) note that exact circuit size search for size 7 is almost instant while size 13 can take over a week, propose improving a given circuit by SAT-re-synthesizing all moderate-size subcircuits, and prove new upper bounds for symmetric functions (search snippets: SUM_n bounds 2.5n − O(1) to 4.5n + o(n), with their computer search up to n = 15 unable to beat 4.5n).
+- Source: https://arxiv.org/abs/2102.12579 (MFCS venue: https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.MFCS.2022.67, search only)
+- Quote: "Finding exact circuit size is a notorious optimization problem in practice." and "Through this approach, we prove new upper bounds on the circuit size of various symmetric functions."
+- Status: verified (fetched); MFCS venue and SUM_n numbers unverified (search snippet only)
+
+H5.
+- Claim: Haaswijk, Soeken, Mishchenko and De Micheli, "SAT-Based Exact Synthesis: Encodings, Topology Families, and Parallelism", IEEE TCAD vol. 39, no. 4, pp. 871–884, April 2020, DOI 10.1109/TCAD.2019.2897703, measures how CNF encodings and symmetry-breaking rules affect exact-synthesis runtime and shows how DAG topology families cut runtime and enable parallel search.
+- Source: https://infoscience.epfl.ch/record/271569 (HTTP 405 on fetch); PDF https://infoscience.epfl.ch/record/271569/files/WH-IEEE-SAT-Based.pdf (not fetched)
+- Quote: none (page not fetched)
+- Status: unverified (search snippet only)
+
+H6.
+- Claim: Demenkov, Kojevnikov, Kulikov and Yaroslavtsev (2010, Information Processing Letters per memory) improved the circuit size upper bound for SUM_n (and hence all symmetric functions) from 5n to 4.5n + o(n) by using a SAT solver to find a smaller replacement block (Kulikov's 2015 talk abstract and the MFCS 2022 paper credit this). Goncharov, Kulikov and Levtsov, "Smaller Circuits for Bit Addition" (arXiv 2509.13966, STACS 2026) lower the bit-addition bound from 5n − 3m to 4.5n − 2m.
+- Source: https://cse.ucsd.edu/node/1029 ; https://arxiv.org/abs/2509.13966v2 ; https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.STACS.2026.46
+- Quote: none (pages not fetched)
+- Status: unverified (search snippet only); IPL venue: unverified (memory)
+
+--- I. Small-n lower bounds by exhaustive or SAT search ---
+
+I1.
+- Claim (absence): No published result was found that certifies a circuit lower bound for a specific Boolean function via a DRAT/LRAT UNSAT certificate independently checked by a verified checker. Searches: "circuit lower bound small inputs SAT solver UNSAT certificate exact synthesis DRAT OR LRAT no circuit minimum gates verified checker" and "exact minimum number of gates multiplier OR adder small n SAT exact synthesis lower bound". The exact small-n lower bounds that do exist (Knuth's 5-input table, H2) come from exhaustive enumeration without certificates. Search snippets note that Knuth used SAT solvers for exact sizes of mod-3 counting functions on 3 to 5 inputs, that BESWAC uses circuit lower bounds to seed exact synthesis on 4- to 6-input functions, and that a Feb 2026 arXiv paper (2602.17493) exactly synthesizes a 2-bit multiplier by SAT but only over linearly separable 2-input gates.
+- Source: https://arxiv.org/pdf/2102.12579v3 ; https://arxiv.org/pdf/2602.17493
+- Quote: none
+- Status: absence after search; related items unverified (search snippet only)
+
+I2.
+- Claim: Exact De Morgan (AND/OR/NOT) formula sizes are known by exhaustive search only up to 5 variables: Russ Cox's 2011 write-up reports parity needs 3, 9, 15 AND/OR operators for n = 2, 3, 4 (worst cases for those n), and the maximum over all 5-variable functions is 28 operators (computed April 2010 with Alex Healy), attained by three NPN classes that are not parity (OEIS A056287). No exact formula-size value for parity on 5 or 6 variables was found.
+- Source: https://research.swtch.com/boolean ; https://oeis.org/A056287
+- Quote: none (pages not fetched)
+- Status: unverified (search snippet only)
+
+I3.
+- Claim: The closest computer-certified small-case optimality result found is Cruz-Filipe and Schneider-Kamp, "Formalizing Size-Optimal Sorting Networks: Extracting a Certified Proof Checker" (arXiv 1502.05209, 2015), a Coq-extracted checker validating generate-and-prune optimality proofs for sorting networks up to 8 inputs (not SAT-based, not circuits).
+- Source: https://arxiv.org/pdf/1502.05209 ; https://arxiv.org/pdf/1502.08008
+- Quote: none (pages not fetched)
+- Status: unverified (search snippet only)
+
+--- J. Computational proof complexity (exact resolution proof sizes) ---
+
+J1.
+- Claim: Peitl and Szeider (JAIR 72, 2021) define resolution hardness numbers (for m = 1, 2, ..., the length of a shortest proof of a hardest formula on m clauses), compute the first ten of them with the corresponding hardest formulas, using a SAT encoding for shortest resolution proofs of a candidate formula plus candidate filtering and symmetry breaking.
+- Source: Tomáš Peitl, Stefan Szeider, "Finding the Hardest Formulas for Resolution", Journal of Artificial Intelligence Research, Vol. 72 (2021), published Sep 22, 2021, https://jair.org/index.php/jair/article/view/12589
+- Quote: "We compute the first ten resolution hardness numbers, along with the corresponding hardest formulas." and "an efficient SAT encoding for computing a shortest resolution proof of a given candidate formula"
+- Status: verified (fetched)
+
+J2.
+- Claim: Grosof, Zhang and Heule (Pragmatics of SAT 2022, arXiv 2207.11284) construct the shortest known DRAT proofs of PHP, of length O(n^3) with leading coefficient 5/2, using auxiliary variables and recursive decomposition; minimality is not claimed (search snippet: CaDiCaL plus drat-trim optimization gives the shortest known proofs for n up to 7 holes).
+- Source: Isaac Grosof, Naifeng Zhang, Marijn J.H. Heule, "Towards the shortest DRAT proof of the Pigeonhole Principle", to appear in Pragmatics of SAT 2022, arXiv 2207.11284, https://arxiv.org/abs/2207.11284
+- Quote: "We construct the shortest known proofs of PHP in the standard proof format of modern SAT solving, DRAT." and "we manually obtain proofs having length $O(n^3)$ and leading coefficient $5/2$."
+- Status: verified (fetched)
+
+J3.
+- Claim: Sidorov and co-authors, "How To Discover Short, Shorter, and the Shortest Proofs of Unsatisfiability: A Branch-and-Bound Approach for Resolution Proof Length Minimization" (arXiv 2411.07955; JAIR 2025 per search), use a layer-list representation that removes clause-permutation symmetry, roughly double the number of minimally unsatisfiable formulas solved exactly compared with the Peitl-Szeider SAT baseline, and report that in about a quarter of analyzed formulas a trimmed CaDiCaL proof is at least 50% longer than optimal.
+- Source: https://arxiv.org/abs/2411.07955v1 ; https://jair.org/index.php/jair/article/view/22128
+- Quote: none (pages not fetched)
+- Status: unverified (search snippet only)
+
+J4.
+- Claim (absence): No source was found reporting exact minimum resolution refutation sizes for specific small PHP_n or Tseitin instances computed by exhaustive or SAT search. Search: "minimum OR shortest resolution refutation size pigeonhole principle computed exhaustive search SAT PHP small instances exact proof size". (Note: PHP with 3 pigeons and 2 holes has 9 clauses, within the ten clause budgets of J1, but no published value was found.)
+- Source: n/a
+- Quote: n/a
+- Status: absence after search
+
+--- K. Symmetry breaking and isomorphism tools ---
+
+K1.
+- Claim: BreakID (Devriendt, Bogaerts, Bruynooghe, Denecker, "Improved Static Symmetry Breaking for SAT", SAT 2016, pp. 104–122) is a static symmetry-breaking preprocessor for SAT (and ASP, arXiv 1608.08447) that detects symmetries with saucy, chooses generators to break more completely, and handles row-interchangeability groups; satsuma (SAT 2024, arXiv 2406.13557) is a newer structure-based alternative reported to be faster.
+- Source: https://arxiv.org/abs/1608.08447v1 ; https://doi.org/10.1007/978-3-319-40970-2_8 ; https://arxiv.org/abs/2406.13557
+- Quote: none (pages not fetched)
+- Status: unverified (search snippet only)
+
+K2.
+- Claim: nauty and Traces (McKay and Piperno, "Practical graph isomorphism, II", Journal of Symbolic Computation 60 (2014) 94–112; arXiv 1301.1493) compute automorphism groups (generators, order, orbits) and canonical labelings of (vertex-colored) graphs by refinement-individualization; current version 2.9.x; used inside Magma, Sage and GAP.
+- Source: https://users.cecs.anu.edu.au/~bdm/nauty/ ; https://pallini.di.uniroma1.it/ ; https://arxiv.org/pdf/1301.1493
+- Quote: none (pages not fetched)
+- Status: unverified (search snippet only)
+
+--- L. 2024 to 2026 work combining SAT certificates with proof assistants ---
+
+L1.
+- Claim: The verified items are: lrat-catcher / "Streaming LRAT Certificates into Lean Theorems" (F3, 2026), PBLean (F4, 2026), the Lean-certified K_8(4,2) = 23 (G6, 2026), the Tarski high-school-algebra result certified in Lean (G5, 2026), and Lean core's own verified LRAT checker (F1, 2024). Snippet-only items: Formal Verification of the Empty Hexagon Number (ITP 2024, G4), Kochen-Specker geometric certificates checked by a Lean 4 program (G7, 2026), and the Isabelle AFP planning lower-bound certificate entry (C4, 2026).
+- Source: as listed in F1, F3, F4, G5, G6
+- Quote: "We propose the tool lrat-catcher, which turns a certificate into a Lean theorem." (F3)
+- Status: verified (fetched) for F1, F3, F4, G5, G6
+
+L2.
+- Claim (absence): No work was found that combines a SAT-certified circuit lower bound (an UNSAT certificate proving no circuit of size s computes f) with a proof assistant, nor any machine-checked exact circuit complexity value for a specific function. Searches: "Lean 4 SAT certificate lower bound" terms within the queries of I1, plus "machine-checked exact circuit complexity" style queries ("circuit lower bound small inputs SAT solver UNSAT certificate exact synthesis DRAT OR LRAT ... verified checker"). The ingredients exist separately (exact synthesis encodings H1 to H5; Lean LRAT import F1/F3), but no paper joins them.
+- Source: n/a
+- Quote: n/a
+- Status: absence after search
+
+=====================================================================
+SUMMARY OF OPEN ITEMS AND GAPS
+=====================================================================
+1. Mathlib: official doc pages for TuringMachine and TMComputable returned 404; the Computability folder has been reorganized into a TuringMachine subdirectory. The existence of `proof_wanted TM2ComputableInPolyTime.comp` could not be confirmed; the fetched (mirror) TMComputable page has no `comp`. Composition of polytime-computable functions is therefore still not available in Mathlib as far as verified here.
+2. No formalized superpolynomial lower bound for general Boolean circuits exists in any proof assistant as far as found. Machine-checked lower bounds found: PARITY not in AC0 via the switching lemma (Lean, Sept 2026 preprint), bit-PHP in resolution over parities (Lean, Sept 2026 preprint), Clique vs monotone circuits following Gordeev (Isabelle AFP 2022), Kolmogorov incompressibility (Coq ITP 2022, HOL4 CPP 2021, Lean 2026 package), log-rank communication lower bound (Lean, 2026 preprint, snippet only).
+3. Not found anywhere: formalized Haken PHP resolution lower bound (plain resolution), Razborov-Smolensky, Razborov's original monotone argument, Baker-Gill-Solovay or oracle machines with resource bounds, Isabelle time hierarchy theorem, Kolmogorov complexity in the Isabelle AFP.
+4. Lean 4 can import UNSAT certificates as theorems today: `Std.Tactic.BVDecide` (`bv_check` with an LRAT file) for BitVec/Bool goals, and lrat-catcher for arbitrary CNF, with the caveat (snippet only) that the Lean compiler enters the trusted base through `Lean.ofReduceBool`.
+5. No SAT-certified circuit lower bound with an independently checked UNSAT certificate was found; Knuth's exhaustive 5-input table (max 12 gates, one NPN class) remains the reference exact small-case result and is itself not certificate-backed.
+6. The complexitylib README claims (Cook-Levin, time hierarchy, P/poly, PCP theorem) are self-reports and were not audited; the descriptive-complexity library (arXiv 2609.18261) and a Lean problem page note that Mathlib itself has no complexity classes or resource-bounded reductions.

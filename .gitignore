@@ -1,0 +1,48 @@
+# Lean build artifacts (never commit; rebuilt by lake)
+.lake/
+*.olean
+*.ilean
+*.trace
+*.hash
+*.c
+*.o
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Large experiment artifacts: benchmark instances, proof logs, raw outputs.
+# Keep small summary tables and scripts; regenerate the rest.
+experiments/**/instances/
+experiments/**/raw/
+experiments/**/proofs/
+*.cnf
+*.cnf.gz
+*.drat
+*.lrat
+*.dpr
+*.pr
+*.frat
+*.zip
+*.tar
+*.tgz
+*.gz
+*.7z
+*.exe
+*.dll
+*.bin
+*.pkl
+*.npy
+*.npz
+*.parquet
+*.h5
+
+# OS and editors
+Thumbs.db
+.DS_Store
+*.swp
+.vscode/
+.idea/

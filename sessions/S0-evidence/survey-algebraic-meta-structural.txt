@@ -1,0 +1,346 @@
+VERIFIED FACT SHEET: ALGEBRAIC/GEOMETRIC, META-COMPLEXITY/MAGNIFICATION, TIME-SPACE (as of 2026-10-08)
+
+Method and caveats
+- Budget used: 29 WebSearch calls, 40 WebFetch calls (fetch budget exhausted).
+- The WebFetch tool returns only short verbatim excerpts (under about 125 characters each); every "Quote" below is one or more of those excerpts, reproduced exactly (LaTeX macros rendered in plain text, e.g. "S_2E/_1" for S$_2$E/$_1$). Where no verbatim excerpt exists, the Quote line says so and the claim is marked unverified.
+- Two fetch problems: the SIAM page for Mulmuley and Sohoni 2001 returned HTTP 403 (not fetched); arXiv 1911.02534 turned out to be Bläser, Ikenmeyer, Lysikov, Pandey, Schreyer (not Ikenmeyer and Kandasamy, whose preprint is arXiv 1911.03990, not fetched).
+- Status legend: "verified (fetched)" = I fetched a page stating the claim; "verified (secondary: site)" = only a non-primary page fetched; "unverified (search snippet only)" = only seen in search results; "unverified (memory)" = from memory.
+
+==================================================
+(I) ALGEBRAIC AND GEOMETRIC APPROACHES
+==================================================
+
+--- A. Valiant's VP vs VNP, permanent vs determinant ---
+
+A1
+- Claim: Mignon and Ressayre (2004) proved that the determinantal complexity of the n x n permanent is at least n^2/2 (over characteristic zero); search results consistently describe this quadratic bound as still the best known lower bound for the permanent, against Grenet's upper bound of 2^n - 1.
+- Source: T. Mignon, N. Ressayre, "A quadratic bound for the determinant and permanent problem", IMRN 2004 (journal page not located); supporting search hits: Macaulay2 Permanents package docs (https://www.macaulay2.com/doc/Macaulay2/share/doc/Macaulay2/Permanents/html/index.html), Ikenmeyer and Landsberg arXiv 1610.00159 (https://arxiv.org/pdf/1610.00159), arXiv 2402.17839 (https://arxiv.org/html/2402.17839v2).
+- Quote: none verbatim fetched; search-result summary: "Ikenmeyer and Landsberg's 2016 arXiv paper lists the known bounds as m²/2 below and 2^m − 1 above."
+- Status: unverified (search snippet only).
+
+A2
+- Claim: No lower bound on determinantal complexity that is superlinear in max{number of variables, degree} is known for ANY explicit polynomial (note: n^2/2 for perm_n is linear in its n^2 variables). Kumar and Volk (2020) prove dc(sum_i x_i^n) >= 1.5n - 3, the first explicit bound exceeding the trivial degree bound by a constant factor.
+- Source: Mrinal Kumar, Ben Lee Volk, "A Lower Bound on Determinantal Complexity", arXiv:2009.02452 (CCC 2021 per memory). Fetched: https://arxiv.org/abs/2009.02452
+- Quote: "it is a long standing open problem to prove a lower bound which is super linear in max{n,d}." and "We prove that the determinantal complexity of the polynomial sum_{i=1}^n x_i^n is at least 1.5n - 3."
+- Status: verified (fetched).
+
+A3
+- Claim: 2024 to 2026 activity on the permanent bound is incremental: Bedi (ECCC TR24-015, Jan 2024) gives an elementary proof of a quadratic lower bound for dc(perm) in positive characteristic (Cai, Chen, Li had earlier extended Mignon-Ressayre to characteristic other than 2, Computational Complexity 2010, per search snippet). The closest 2026 item, ECCC TR26-097 (Sheshadri, June 2026), proves an asymptotic n^2/(2e) symmetric determinantal lower bound for diagonal power sums, not for the permanent. No 2025 or 2026 improvement of n^2/2 for the permanent was found.
+- Source: Harpreet Bedi, "Degree 2 lower bound for Permanent in arbitrary characteristic", ECCC TR24-015. Fetched: https://eccc.weizmann.ac.il/report/2024/015/ ; TR26-097 only via search (https://eccc.weizmann.ac.il/report/2026/097/).
+- Quote: "An elementary proof of quadratic lower bound for determinantal complexity of the permanent" "in positive characteristic is stated."
+- Status: verified (fetched) for Bedi 2024; Cai-Chen-Li and TR26-097 parts: unverified (search snippet only).
+
+--- B. Geometric complexity theory ---
+
+B1
+- Claim: Mulmuley and Sohoni (2001) proposed strengthening the permanent vs determinant conjecture over C to separating the GL_{n^2}(C)-orbit closures of the determinant and the padded permanent, to be certified by representation-theoretic "occurrence obstructions" (irreducible representations occurring in one coordinate ring but not the other).
+- Source: As stated in the abstract of Bürgisser, Ikenmeyer, Panova, "No occurrence obstructions in geometric complexity theory", arXiv:1604.06431, fetched: https://arxiv.org/abs/1604.06431 . Venue of the original (K. Mulmuley, M. Sohoni, "Geometric complexity theory I", SIAM J. Comput. 31(2), 2001): SIAM page fetch failed (HTTP 403); a search snippet (Gesmundo, Ikenmeyer, Panova, arXiv 1611.00827) cites "SIAM J. Comput. papers from 2001 and 2008".
+- Quote: "suggested to study a strengthened version of this conjecture over the complex numbers" ... "separating the orbit closures of the determinant and padded permanent polynomials." ... "which are irreducible representations of GL_{n^2}(C)"
+- Status: verified (fetched) for the content as restated by BIP; venue details unverified (search snippet only).
+
+B2
+- Claim: Bürgisser, Ikenmeyer, Panova (FOCS 2016; J. AMS 2019) proved that occurrence obstructions cannot separate the determinant and padded-permanent orbit closures, i.e. the original Mulmuley-Sohoni occurrence-obstruction program is impossible; they explicitly do not rule out multiplicity obstructions. The permanent vs determinant problem is equivalent to VP_ws vs VNP.
+- Source: Peter Bürgisser, Christian Ikenmeyer, Greta Panova, "No occurrence obstructions in geometric complexity theory", arXiv:1604.06431 (comments line: "To appear in the Journal of the AMS"). Fetched: https://arxiv.org/abs/1604.06431
+- Quote: "We prove that this approach is impossible." ... "we do not rule out the general approach to the permanent versus determinant problem via multiplicity obstructions." ... "is equivalent to the separation of the complexity classes VP_{ws} and VNP."
+- Status: verified (fetched) (FOCS 2016 venue: unverified (memory); JAMS: page says "To appear in the Journal of the AMS").
+
+B3
+- Claim: Ikenmeyer and Panova (FOCS 2016; Advances in Mathematics 319 (2017) 40-66) showed that vanishing of rectangular Kronecker coefficients cannot prove superpolynomial determinantal complexity lower bounds for the permanent (the precursor to B2).
+- Source: C. Ikenmeyer, G. Panova, "Rectangular Kronecker coefficients and plethysms in geometric complexity theory", arXiv:1512.03798 (https://www.arxiv.org/pdf/1512.03798), not fetched.
+- Quote (from search snippet, not a fetched page): "We prove that in the geometric complexity theory program the vanishing of rectangular Kronecker coefficients cannot be used to prove superpolynomial determinantal complexity lower bounds for the permanent polynomial."
+- Status: unverified (search snippet only).
+
+B4
+- Claim: What GCT can still hope to do: multiplicity obstructions. Dörfler, Ikenmeyer, Panova (2019) show multiplicity obstructions are strictly stronger than occurrence obstructions; Ikenmeyer and Kandasamy (STOC 2020, pp. 713-726; arXiv 1911.03990) give the first implementation of the Mulmuley-Sohoni approach, separating the orbit closures of the power-sum polynomial and the product of variables using only symmetry information and representation-theoretic multiplicities, with an obstruction that is neither an occurrence obstruction nor a vanishing-ideal occurrence obstruction.
+- Source: Dörfler, Ikenmeyer, Panova, arXiv 1901.04576 (https://arxiv.org/pdf/1901.04576.pdf); Ikenmeyer, Kandasamy, "Implementing geometric complexity theory: On the separation of orbit closures via symmetries", STOC 2020 (https://arxiv.org/pdf/1911.03990). Neither fetched.
+- Quote (search snippet, DIP 2019): "Multiplicity obstructions are stronger than occurrence obstructions... The existence of such strong occurrence obstructions has been recently disproven in 2016 in two successive papers"
+- Status: unverified (search snippet only).
+
+B5
+- Claim: Bläser, Ikenmeyer, Lysikov, Pandey, Schreyer (2019; FOCS 2020 per memory) prove NP-hardness of orbit closure containment for 3-tensors, characterize generating tensors almost by their symmetries, prove nontrivial equations via GCT methods, and read this as a positive sign for GCT.
+- Source: Markus Bläser, Christian Ikenmeyer, Vladimir Lysikov, Anurag Pandey, Frank-Olaf Schreyer, "Variety Membership Testing, Algebraic Natural Proofs, and Geometric Complexity Theory", arXiv:1911.02534. Fetched: https://arxiv.org/abs/1911.02534
+- Quote: "hence we establish the NP-hardness of the orbit closure containment problem for 3-tensors." ... "We view this as a promising sign that the GCT approach might indeed be successful."
+- Status: verified (fetched) (venue unverified (memory)).
+
+--- C. Low-depth algebraic circuit lower bounds ---
+
+C1
+- Claim: Limaye, Srinivasan, Tavenas (ECCC TR21-081, June 2021; FOCS 2021; CACM Research Highlight Feb 2024; journal version in JACM reported as 2025 by a search snippet) prove the first superpolynomial lower bounds against general algebraic circuits of every constant depth, over fields of characteristic 0 or large characteristic, for the Iterated Matrix Multiplication polynomial IMM_{n,d}; the set-multilinear core bound holds over any field when d = o(log n); they also give the first lower bounds for homogeneous constant-depth circuits over any field.
+- Source: Nutan Limaye, Srikanth Srinivasan, Sébastien Tavenas, "Superpolynomial Lower Bounds Against Low-Depth Algebraic Circuits", ECCC TR21-081 (Revision 1, 6 July 2021). Fetched: https://eccc.weizmann.ac.il/report/2021/081/
+- Quote: "we prove the first superpolynomial lower bounds against general algebraic circuits of all constant depths" "over all fields of characteristic 0 (or large)" ... "This result holds over any field, as long as d=o(log n)." ... "we also prove the first lower bounds against homogeneous algebraic circuits of constant depth over any field."
+- Status: verified (fetched); FOCS 2021 / JACM / CACM venue details: unverified (search snippet only).
+
+C2
+- Claim: Forbes (CCC 2024, LIPIcs vol. 300, 31:1-31:16, DOI 10.4230/LIPIcs.CCC.2024.31) removes the characteristic restriction: super-polynomial low-depth lower bounds over ANY field with the same parameters as LST (even the improved parameters of Bhargav, Dutta, Saxena, MFCS 2022), via (i) a logical "generic transfer" argument from characteristic zero and (ii) a constructive set-multilinearization over any field using the Binet-Minc identity.
+- Source: Michael A. Forbes, "Low-Depth Algebraic Circuit Lower Bounds over Any Field", 39th Computational Complexity Conference (CCC 2024), LIPIcs 300, pp. 31:1-31:16. Fetched: https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.CCC.2024.31
+- Quote: "we prove super-polynomial algebraic circuit lower bounds against low-depth algebraic circuits over any field" ... "with the same parameters as LST (or even matching the improved parameters of Bhargav, Dutta, and Saxena" ... "with a set-multilinearization that works over any field, by using the Binet-Minc identity"
+- Status: verified (fetched). (Search snippet: a 2025 slide deck by Forbes labels it CCC 2024 Best Paper; unverified.)
+
+C3
+- Claim: Amireddy, Garg, Kayal, Saha, Thankey (ICALP 2023, LIPIcs 261, 12:1-12:20, DOI 10.4230/LIPIcs.ICALP.2023.12) obtain superpolynomial low-depth lower bounds (for IMM and Nisan-Wigderson design polynomials) without the set-multilinearization step of LST, and superpolynomial bounds for unique-parse-tree (UPT) formulas.
+- Source: P. Amireddy, A. Garg, N. Kayal, C. Saha, B. Thankey, "Low-Depth Arithmetic Circuit Lower Bounds: Bypassing Set-Multilinearization", ICALP 2023. https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ICALP.2023.12 (not fetched).
+- Quote: none verbatim; search-result summary: "reaches superpolynomial bounds for low-depth circuits without going through the set-multilinearization step that the earlier FOCS 2021 work of Limaye, Srinivasan and Tavenas depended on".
+- Status: unverified (search snippet only).
+
+C4
+- Claim: 2025 to 2026: no improvement to the general constant-depth bounds was found. The only new 2026 ECCC lower bound found is TR26-104 (June 2026, three authors including Tavenas): over small finite fields, an explicit degree-d polynomial requires 2^{Omega(sqrt d)} size for depth-5 circuits with polynomial top fan-in, with the remark that a stronger such bound in characteristic zero would separate VP from VNP.
+- Source: ECCC TR26-104, https://eccc.weizmann.ac.il/report/2026/104 (not fetched).
+- Quote: none verbatim; search-result summary as stated in the claim.
+- Status: unverified (search snippet only).
+
+--- D. Algebraic natural proofs ---
+
+D1
+- Claim: The algebraic natural proofs framework was introduced independently by Forbes, Shpilka, Volk (STOC 2017; Theory of Computing 14(18), 2018, pp. 1-45) and Grochow, Kumar, Saks, Saraf (2017). FSV show (per search snippet) that an algebraic natural proofs barrier exists exactly when PIT admits succinct derandomization (succinct hitting sets).
+- Source: Introduction attribution verified from the abstract of Chatterjee et al., arXiv:2004.14147, fetched: https://arxiv.org/abs/2004.14147 ; FSV: M. Forbes, A. Shpilka, B. L. Volk, "Succinct Hitting Sets and Barriers to Proving Lower Bounds for Algebraic Circuits", Theory of Computing 14 (2018), Article 18 (https://theoryofcomputing.org/articles/v014a018, not fetched); GKSS arXiv 1701.01717 (not fetched).
+- Quote: "independently introduced in the works of Forbes, Shpilka and Volk (2018)" "and Grochow, Kumar, Saks and Saraf (2017), to study the efficacy of commonly used techniques"
+- Status: verified (fetched) for the attribution; the succinct-hitting-set equivalence: unverified (search snippet only).
+
+D2
+- Claim: Chatterjee, Kumar, Ramya, Saptharishi, Tengse (FOCS 2020, combined arXiv version): the subclass of VP with bounded coefficients has efficient equations (over finite fields, all of VP does); over characteristic zero, VNP has no efficient equations if the permanent is exponentially hard for algebraic circuits, i.e. a conditional algebraic natural-proofs barrier for VNP.
+- Source: Prerona Chatterjee, Mrinal Kumar, C Ramya, Ramprasad Saptharishi, Anamay Tengse, "On the Existence of Algebraic Natural Proofs", arXiv:2004.14147 (comments: combined with arXiv:2012.07056 "If VNP is hard, then so are equations for it"). Fetched: https://arxiv.org/abs/2004.14147
+- Quote: "The subclass of VP that contains polynomial families with bounded coefficients, has efficient equations." ... "Over fields of characteristic zero, VNP does not have any efficient equations," "if the Permanent is exponentially hard for algebraic circuits."
+- Status: verified (fetched) (FOCS 2020 venue: unverified (memory)).
+
+--- E. Ideal Proof System ---
+
+E1
+- Claim: Grochow and Pitassi (FOCS 2014; JACM 65(6), 2018) introduce the Ideal Proof System and show that a super-polynomial lower bound on any Boolean tautology in IPS implies VNP != VP (permanent has no poly-size algebraic circuits); line lower bounds for Polynomial Calculus connect to permanent vs determinant.
+- Source: Joshua A. Grochow, Toniann Pitassi, "Circuit complexity, proof complexity, and polynomial identity testing", arXiv:1404.3820. Fetched: https://arxiv.org/abs/1404.3820
+- Quote: "We introduce a new algebraic proof system, which has tight connections to (algebraic) circuit complexity." ... "implies that the permanent does not have polynomial-size algebraic circuits (VNP is not equal to VP)." ... "super-polynomial lower bounds on the number of lines in Polynomial Calculus proofs."
+- Status: verified (fetched) (JACM 2018 venue: unverified (memory); the arXiv page shows no journal line).
+
+E2
+- Claim: Andrews and Forbes (STOC 2022, DOI 10.1145/3519935.3520025) prove super-polynomial lower bounds for IPS refutations computed by low-depth circuits, extending LST to proof complexity, plus new hitting set generators for poly-size low-depth circuits.
+- Source: Robert Andrews, Michael A. Forbes, "Ideals, Determinants, and Straightening: Proving and Using Lower Bounds for Polynomial Ideals", arXiv:2112.00792. Fetched: https://arxiv.org/abs/2112.00792
+- Quote: "We prove super-polynomial lower bounds for Ideal Proof System refutations computed by low-depth circuits." "This extends the recent breakthrough low-depth circuit lower bounds of Limaye, Srinivasan, and Tavenas"
+- Status: verified (fetched).
+
+E3
+- Claim: Elbaz, Govindasamy, Lu, Tzameret (ECCC TR25-080, June 2025; listed in STOC 2026 proceedings per search) give the first IPS lower bounds over fixed finite fields: for multilinear constant-depth IPS refutations of a variant of the GHT (FOCS'22) knapsack instance, using Forbes's CCC'24 set-multilinearization, plus roABP-IPS lower bounds in finite fields.
+- Source: Tal Elbaz, Nashlen Govindasamy, Jiaqi Lu, Iddo Tzameret, "Lower Bounds against the Ideal Proof System in Finite Fields", ECCC TR25-080. Fetched: https://eccc.weizmann.ac.il/report/2025/080/
+- Quote: "This work establishes lower bounds against fragments of IPS over fixed finite fields." ... "the refutation is multilinear and written as a constant-depth circuit" ... "we present new lower bounds for read-once algebraic branching program refutations, roABP-IPS, in finite fields"
+- Status: verified (fetched); STOC 2026 venue: unverified (search snippet only).
+
+E4
+- Claim: Other 2025 to 2026 IPS results: Behera, Limaye, Ramanathan, Srinivasan (TR25-079, June 2025) give IPS fragment bounds in positive characteristic for super-polynomially large fields; Chatterjee, Ghosal, Mukhopadhyay, Sinhababu (FSTTCS 2025) give formula and sum-of-ROABP IPS lower bounds; Hakoniemi, Limaye, Tzameret (TR26-070, May 2026) give hard CNF instances for roABP-IPS_LIN; Lu, Santhanam, Tzameret (TR25-134, Sept 2025; ITCS 2026) show AC0[p]-Frege cannot efficiently prove that constant-depth algebraic circuit lower bounds are hard.
+- Source: https://eccc.weizmann.ac.il/report/2025/079 (via https://eccc.weizmann.ac.il/latest/reports/38), https://arxiv.org/abs/2507.09515, https://eccc.weizmann.ac.il/report/2026/070, https://eccc.weizmann.ac.il/report/2025/134 (none fetched).
+- Quote: none verbatim; search-result summaries as stated in the claim.
+- Status: unverified (search snippet only).
+
+--- F. Extension complexity (a closed route) ---
+
+F1
+- Claim: Fiorini, Massar, Pokutta, Tiwary, de Wolf (STOC 2012; JACM 62(2), 2015) solved Yannakakis's 20-year-old problem: there is no polynomial-size LP whose polytope projects to the TSP polytope, even without symmetry; likewise for the cut and stable set polytopes.
+- Source: Samuel Fiorini, Serge Massar, Sebastian Pokutta, Hans Raj Tiwary, Ronald de Wolf, "Exponential Lower Bounds for Polytopes in Combinatorial Optimization", arXiv:1111.0837 (comments: "This version of the paper will appear in the Journal of the ACM"). Fetched: https://arxiv.org/abs/1111.0837
+- Quote: "there exists no polynomial-size linear program (LP) whose associated polytope projects to the traveling salesman polytope"
+- Status: verified (fetched).
+
+F2
+- Claim: Rothvoss (STOC 2014; JACM 64(6), 2017): the perfect matching polytope of K_n has extension complexity 2^{Omega(n)}, answering the central open question of the field negatively, and raising the TSP polytope bound to 2^{Omega(n)}. Since perfect matching is in P, this shows extension complexity lower bounds do not track P vs NP.
+- Source: Thomas Rothvoss, "The matching polytope has exponential extension complexity", arXiv:1311.2369 (v4, 2017). Fetched: https://arxiv.org/abs/1311.2369
+- Quote: "the central question in this field remained wide open" "We answer this question negatively." "the extension complexity of the perfect matching polytope in a complete n-node graph is 2^Omega(n)"
+- Status: verified (fetched) (JACM 2017 venue: unverified (memory)).
+
+F3
+- Claim: Lee, Raghavendra, Steurer (STOC 2015): the cut, TSP and stable set polytopes are not linear images of any spectrahedron of dimension below 2^{n^c}; first super-polynomial lower bounds on semidefinite extension complexity; polynomial-size SDPs are no stronger than low-degree sum-of-squares for max-CSPs.
+- Source: James R. Lee, Prasad Raghavendra, David Steurer, "Lower bounds on the size of semidefinite programming relaxations", arXiv:1411.6317. Fetched: https://arxiv.org/abs/1411.6317
+- Quote: "the first super-polynomial lower bounds on the semidefinite extension complexity" ... "the cut, TSP, and stable set polytopes" "not the linear image of the feasible region of any SDP" ... "we establish a close connection between arbitrary SDPs and those arising from the sum-of-squares SDP hierarchy"
+- Status: verified (fetched) (STOC 2015 venue: unverified (memory)).
+
+==================================================
+(II) META-COMPLEXITY AND HARDNESS MAGNIFICATION
+==================================================
+
+--- G. MCSP and meta-complexity ---
+
+G1
+- Claim: Kabanets and Cai (STOC 2000, pp. 73-79; ECCC TR99-045) explicitly defined MCSP, derived consequences of MCSP in P or P/poly, and argued that an NP-completeness proof would require strong circuit lower bounds for E.
+- Source: V. Kabanets, J.-Y. Cai, "Circuit minimization problem", STOC 2000; author page https://www.cs.sfu.ca/~kabanets/Research/circuit.html ; ECCC https://eccc.weizmann.ac.il/report/1999/045/ (not fetched).
+- Quote: none verbatim; search-result summary: "if the problem is NP-complete, a proof of that would require strong circuit lower bounds for E, beyond current techniques."
+- Status: unverified (search snippet only).
+
+G2
+- Claim: Murray and Williams (CCC 2015; Theory of Computing 13(4), 2017): MCSP is provably not NP-hard under O(n^{1/2-eps})-time projections, nor under randomized O(n^{1/5-eps})-time projections; NP-hardness under AC0 reductions would imply extremely strong lower bounds, and under general poly-time reductions would imply EXP != NP cap P/poly.
+- Source: Cody D. Murray, R. Ryan Williams, "On the (Non) NP-Hardness of Computing Circuit Complexity", Theory of Computing 13 (2017), Article 4, pp. 1-22. Fetched: https://theoryofcomputing.org/articles/v013a004/
+- Quote: "MCSP is provably not NP-hard under O(n^{1/2-eps})-time projections" ... "is not NP-hard under randomized O(n^{1/5-eps})-time projections" ... "would separate complexity classes: EXP != NP cap P/poly"
+- Status: verified (fetched).
+
+G3
+- Claim: Hirahara (FOCS 2018): the first non-black-box worst-case to average-case reduction within NP, for approximating MINKT (and MCSP), with evidence the approximation problems are outside coNP (so black-box barriers do not apply); NP-hardness of these approximation problems would imply worst-case to average-case equivalence for NP.
+- Source: Shuichi Hirahara, "Non-black-box Worst-case to Average-case Reductions within NP", ECCC TR18-138 (10 Aug 2018; Rev. 1, 28 Feb 2019). Fetched: https://eccc.weizmann.ac.il/report/2018/138/
+- Quote: "We present the first non-black-box worst-case to average-case reduction" "Specifically, we consider the minimum time-bounded Kolmogorov complexity problem (MINKT)" ... "proving NP-hardness of the approximation versions of MINKT or the Minimum Circuit Size Problem (MCSP)"
+- Status: verified (fetched) (FOCS 2018 venue: unverified (memory)).
+
+G4
+- Claim: Hirahara (FOCS 2022, pp. 968-979; ECCC TR22-119): learning programs is NP-hard under randomized polynomial-time many-one reductions, overcoming Ko's relativization barrier; NP-hardness of partial-function MCSP and of time-bounded Kolmogorov complexity of partial strings; the abstract calls NP-hardness of (total) MCSP a long-standing open question.
+- Source: Shuichi Hirahara, "NP-Hardness of Learning Programs and Partial MCSP", ECCC TR22-119 (24 Aug 2022). Fetched: https://eccc.weizmann.ac.il/report/2022/119/
+- Quote: "prove NP-hardness of learning programs under randomized polynomial-time many-one reductions." "we overcome Ko's relativization barrier" "We prove NP-hardness of the partial function variant of MCSP" ... "another long-standing open question of showing NP-hardness of the Minimum Circuit Size Problem"
+- Status: verified (fetched) (FOCS pages: unverified (search snippet only)).
+
+G5
+- Claim: Ilango (FOCS 2023; ECCC TR23-165, Rev. 1 March 2025): with probability 1 over a uniformly random oracle O, there is a P/poly reduction from approximating hypergraph vertex cover (NP-hard) to MCSP^O, resolving a conjecture of Huang, Ilango, Ren (STOC 2023); replacing the oracle by hash functions gives a plethora of candidate uniform deterministic many-one reductions from SAT to MCSP (and K^t); a key component is a cryptographic proof of work.
+- Source: Rahul Ilango, "SAT Reduces to the Minimum Circuit Size Problem with a Random Oracle", ECCC TR23-165. Fetched: https://eccc.weizmann.ac.il/report/2023/165/
+- Quote: "there is a P/poly reduction from the NP-hard problem of approximating vertex cover on hypergraphs to MCSP" "MCSP on circuits that have access to a uniformly random oracle O" ... "Curiously, a key part of our reduction is computing a cryptographic proof of work."
+- Status: verified (fetched).
+
+G6
+- Claim: Hirahara (STOC 2023; ECCC TR23-037): first characterization of one-way functions by worst-case assumptions: OWFs exist iff it is NP-hard (under randomized poly-time reductions) to approximate distributional Kolmogorov complexity AND NP is worst-case hard. Under his Meta-Complexity Padding Conjecture, OWFs exist iff an approximate version of MCSP is worst-case hard.
+- Source: Shuichi Hirahara, "Capturing One-Way Functions via NP-Hardness of Meta-Complexity", ECCC TR23-037 (28 Mar 2023). Fetched: https://eccc.weizmann.ac.il/report/2023/037/
+- Quote: "a one-way function exists if and only if it is NP-hard to approximate the distributional Kolmogorov complexity" "and NP is hard in the worst case" ... "We also propose the Meta-Complexity Padding Conjecture" ... "the worst-case hardness of an approximate version of the Minimum Circuit Size Problem"
+- Status: verified (fetched) (STOC 2023 venue: unverified (search snippet only)).
+
+G7
+- Claim: Liu and Pass (FOCS 2020): for any polynomial t(n) >= (1+eps)n, one-way functions exist iff t-time-bounded Kolmogorov complexity K^t is mildly hard on average (no PPT algorithm computes K^t on more than a 1 - 1/p(n) fraction of n-bit strings). (Parameter details are from the fetched page's abstract as summarized by the fetch tool; verbatim excerpts below.)
+- Source: Yanyi Liu, Rafael Pass, "On One-way Functions and Kolmogorov Complexity", arXiv:2009.11514. Fetched: https://arxiv.org/abs/2009.11514
+- Quote: "the equivalence of two fundamental problems in the theory of computing" ... "the first natural, and well-studied, computational problem characterizing the feasibility of the central private-key primitives and protocols in Cryptography"
+- Status: verified (fetched) (FOCS 2020 venue: unverified (memory)).
+
+G8
+- Claim: 2024 to 2026 follow-ups found: Hirahara and Nanashima, "One-Way Functions and Zero Knowledge" (ECCC TR24-063) simplify the G6 characterization; Hu, Manor, Oliveira (ECCC TR26-021, Feb 2026; STOC 2026) show the randomized analogue rKt of Levin's Kt violates symmetry of information unconditionally, and relate average-case symmetry of information to OWF existence; Hirahara, Ilango, Loff (arXiv 2507.10426, July 2025) prove NP-hardness of deciding two-way communication complexity. No 2025 or 2026 NP-hardness result for standard (total) MCSP was found.
+- Source: https://eccc.weizmann.ac.il/report/2024/063/download ; https://eccc.weizmann.ac.il/report/2026/021/ ; https://web3.arxiv.org/abs/2507.10426 (none fetched).
+- Quote: none verbatim; search-result summaries as stated.
+- Status: unverified (search snippet only).
+
+G9 (OPEN)
+- Claim: Whether MCSP is NP-hard (NP-complete) is open; two 2022 to 2025 primary sources state this explicitly.
+- Source: Ilango, ECCC TR23-165, fetched https://eccc.weizmann.ac.il/report/2023/165/ ; Hirahara, ECCC TR22-119, fetched https://eccc.weizmann.ac.il/report/2022/119/
+- Quote: "It has been an open question since Levin's seminal work on NP-completeness whether MCSP is NP-complete." (Ilango) ; "another long-standing open question of showing NP-hardness of the Minimum Circuit Size Problem" (Hirahara)
+- Status: verified (fetched).
+
+--- H. Range avoidance and circuit lower bounds ---
+
+H1
+- Claim: Korten (FOCS 2021): constructing a truth table of high circuit complexity is complete for APEPP under P^NP reductions (range avoidance is the "hardest explicit construction"); corollary: EXP^NP contains a language of circuit complexity 2^{n^{Omega(1)}} iff it contains one of circuit complexity 2^n/(2n).
+- Source: Oliver Korten, "The Hardest Explicit Construction", arXiv:2106.00875. Fetched: https://arxiv.org/abs/2106.00875
+- Quote: "constructing a truth table of high circuit complexity is complete for APEPP under P^NP reductions." ... "As a corollary, we prove that EXP^NP contains a language of circuit complexity" ... "if and only if it contains a language of circuit complexity 2^n/2n."
+- Status: verified (fetched) (FOCS 2021 venue: unverified (memory)).
+
+H2
+- Claim: Ren, Santhanam, Wang (FOCS 2022; ECCC TR22-048): Avoid is complete for APEPP; a framework for solving C-Avoid; the first equivalence between circuit lower bounds and (algorithms for) range avoidance, in both i.o. and a.e. settings; solving C-Avoid would imply breakthrough lower bounds even for very weak C; connection to proof complexity.
+- Source: Hanlin Ren, Rahul Santhanam, Zhikun Wang, "On the Range Avoidance Problem for Circuits", ECCC TR22-048 (4 Apr 2022). Fetched: https://eccc.weizmann.ac.il/report/2022/048/
+- Quote: "This problem is complete for the class APEPP that corresponds to explicit constructions of objects" ... "This is the first equivalence result regarding circuit lower bounds" "they work in both infinitely-often and almost-everywhere settings" ... "solving C-Avoid would imply breakthrough lower bounds, even for very weak circuit classes C"
+- Status: verified (fetched) (FOCS 2022 venue: unverified (memory)).
+
+H3
+- Claim: Chen, Hirahara, Ren (STOC 2024; ECCC TR23-144; arXiv 2309.12912): there is a language in S_2E/_1 with circuit complexity at least 2^n/n (near-maximum), hence the same for Sigma_2E, (Sigma_2E cap Pi_2E)/_1 and ZPE^NP/_1; previously only half-exponential bounds were known for these classes, and the smallest class known to need exponential circuits was Delta_3E = E^{Sigma_2P} (Miltersen, Vinodchandran, Watanabe). The proof is an FZPP^NP/_1 pseudodeterministic algorithm for range avoidance that works infinitely often.
+- Source: Lijie Chen, Shuichi Hirahara, Hanlin Ren, "Symmetric Exponential Time Requires Near-Maximum Circuit Size", ECCC TR23-144 (22 Sep 2023). Fetched: https://eccc.weizmann.ac.il/report/2023/144/ ; class name S_2E/_1 confirmed by the fetched Li page (H4).
+- Quote: "We show that there is a language in" ... "with circuit complexity at least 2^n/n" ... "Sigma_2E, (Sigma_2E cap Pi_2E)/_1, and ZPE^NP/_1" ... "Previously, only "half-exponential" circuit lower bounds for these complexity classes were known" ... "that solves the range avoidance problem infinitely often"
+- Status: verified (fetched) (STOC 2024 venue: unverified (memory)).
+
+H4
+- Claim: Zeyong Li (STOC 2024; ECCC TR23-156, Rev. 1 April 2024) simplifies CHR and makes it truly uniform and almost-everywhere: a simple single-valued FS_2P algorithm for Avoid that works for ALL input lengths, giving S_2E not contained in i.o.-SIZE[2^n/n] (no advice; by the search snippet the revision also states the Sigma_2E cap Pi_2E conclusion almost everywhere).
+- Source: Zeyong Li, "Symmetric Exponential Time Requires Near-Maximum Circuit Size: Simplified, Truly Uniform", ECCC TR23-156. Fetched: https://eccc.weizmann.ac.il/report/2023/156/
+- Quote: "Chen, Hirahara and Ren prove that S_2E/_1 not subset SIZE[2^n/n]" "by giving a single-valued FS_2P algorithm for the Range Avoidance Problem (Avoid)" "that works for infinitely many input size n." "Building on their work, we present a simple single-valued FS_2P algorithm for Avoid that works for all input size n." "we obtain the circuit lower bound S_2E not subset i.o.-SIZE[2^n/n]"
+- Status: verified (fetched).
+
+H5
+- Claim: 2024 to 2026 follow-ups: Ren and Williams (ECCC TR26-118, July 2026) prove a near-maximum (2^n/n) circuit lower bound for exponential time with promise-MA oracle queries and one advice bit (class E^{prMA}/1 per the search snippet), combining the iterative win-win paradigm (Chen, Lu, Oliveira, Ren, Santhanam, FOCS'23), the range-avoidance-to-lower-bounds reduction and the PCP theorem. Chen, Li, Liang (ECCC TR24-182, Nov 2024, rev. June 2026) obtain 2^n/n circuit complexity for exponential-time Arthur-Merlin with sub-exponential advice. Huang, Li, Zhong (ITCS 2026; TR25-049) give the first subexponential-time algorithm for NC^0_k range avoidance with super-linear stretch. No 2025 or 2026 result lowering the "near-maximum" class below S_2E / Sigma_2E was found.
+- Source: Hanlin Ren, Ryan Williams, "Near-Maximum Circuit Lower Bounds for Exponential Time with Merlin-Arthur Queries", ECCC TR26-118 (10 July 2026; Rev. 1, 12 July 2026). Fetched: https://eccc.weizmann.ac.il/report/2026/118/ ; TR24-182: https://eccc.weizmann.ac.il/report/2024/182/ (not fetched); TR25-049: https://eccc.weizmann.ac.il/report/2025/049 (not fetched).
+- Quote (TR26-118): "We prove a near-maximum (2^n / n) circuit lower bound for the complexity class" ... "Our proof incorporates the iterative win-win paradigm (Chen--Lu--Oliveira--Ren--Santhanam, FOCS'23)" "the reduction from the Range Avoidance problem to circuit lower bounds" "and the PCP theorem"
+- Status: verified (fetched) for the Ren-Williams bound and ingredients (the exact class name was truncated by the fetch tool and is from the search snippet); Chen-Li-Liang and Huang-Li-Zhong: unverified (search snippet only).
+
+--- I. Hardness magnification and the locality barrier ---
+
+I1
+- Claim: Oliveira and Santhanam (FOCS 2018, pp. 65-76, DOI 10.1109/FOCS.2018.00016; ECCC TR18-139) coined "hardness magnification": for several natural problems (MCSP variants), lower bounds only slightly better than trivial would imply superpolynomial (even exponential) lower bounds against strong models.
+- Source: Igor C. Oliveira, Rahul Santhanam, "Hardness Magnification for Natural Problems", ECCC TR18-139, https://eccc.weizmann.ac.il/report/2018/139/ (not fetched; existence of [OS18] as a magnification result is confirmed by the fetched CHOPRS abstract in I3).
+- Quote: none verbatim; search-result summary: "bounds that barely beat triviality would already force lower bounds that grow faster than any polynomial, and perhaps exponential ones, against powerful models."
+- Status: unverified (search snippet only).
+
+I2
+- Claim: 2019 magnification results: Oliveira, Pich, Santhanam (CCC 2019, LIPIcs 137, 27:1-27:29; Theory of Computing 17(11), 2021) show magnification for gap-MKtP/gap-MCSP near state-of-the-art lower bounds; McKay, Murray, Williams (STOC 2019, pp. 1215-1225, DOI 10.1145/3313276.3316396) extend magnification to oplus-P-, PP-, PSPACE- and EXP-complete oracles; Chen, Jin, Williams (FOCS 2019; ECCC TR19-118) show that if some 2^{n^{o(1)}}-sparse NP language has no n^{1+eps}-size circuits then NP has no n^k-size circuits for any k (also for formulas, branching programs, AC0[6], TC0).
+- Source: https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.CCC.2019.27 ; https://dspace.mit.edu/handle/1721.1/137518 ; https://eccc.weizmann.ac.il/report/2019/118/ (none fetched).
+- Quote: none verbatim; search-result summary (CJW): "if some 2^{n^{o(1)}}-sparse NP language cannot be computed by circuits of size n^{1+ε} for a fixed ε > 0, then NP has no circuits of size n^k for any fixed k".
+- Status: unverified (search snippet only).
+
+I3
+- Claim: Chen, Hirahara, Oliveira, Pich, Rajgopal, Santhanam (ITCS 2020; JACM 69(4), 2022): magnification reduces major separations (e.g. NP vs P/poly) to lower bounds for problems that appear much easier; the "locality barrier": every existing magnification theorem unconditionally shows the relevant problem has highly efficient circuits extended with small fan-in oracle gates, and lower-bound techniques against weak models usually extend to such oracle circuits, so direct adaptations of known lower bounds cannot trigger magnification.
+- Source: Lijie Chen, Shuichi Hirahara, Igor Carboni Oliveira, Ján Pich, Ninad Rajgopal, Rahul Santhanam, "Beyond Natural Proofs: Hardness Magnification and Locality", ECCC TR19-168 (20 Nov 2019). Fetched: https://eccc.weizmann.ac.il/report/2019/168/
+- Quote: "Hardness magnification reduces major complexity separations" ... "the required lower bound is known for problems that appear to be significantly easier" ... "This is captured by a locality barrier: existing magnification theorems unconditionally show" ... "admit highly efficient circuits extended with small fan-in oracle gates" ... "lower bound techniques against weak circuit models quite often easily extend" ... "This explains why direct adaptations of certain lower bounds are unlikely to yield strong complexity separations"
+- Status: verified (fetched) (ITCS 2020 / JACM 2022 venue: unverified (memory)).
+
+--- J. Williams' algorithmic method: not covered here (another agent covers ACC0). ---
+
+--- K. Unprovability in bounded arithmetic ---
+
+K1
+- Claim: Razborov (Izvestiya: Mathematics 59(1), 1995, 205-227): assuming strong pseudorandom generators, S^2_2(alpha) cannot prove SAT is not in SIZE[n^{log* n}] (conditional unprovability of circuit lower bounds); Pich (Annals of Pure and Applied Logic 166(1), 2015, 29-45; ECCC TR13-077): the theory of uniform NC^1 cannot prove SAT requires circuits of size n^{4kc} unless every SIZE(n^k) function has subexponential-size formula approximations, and unconditional unprovability for V^0 of quasi-polynomial bounds.
+- Source: https://www.karlin.mff.cuni.cz/~krajicek/razborov95.pdf ; https://www.mathnet.ru/eng/im9 ; https://eccc.weizmann.ac.il/report/2013/077 ; https://www.karlin.mff.cuni.cz/~pich/clbaapal.pdf (none fetched).
+- Quote: none verbatim; search-result summary: "if strong pseudorandom generators exist, the system S^2_2(α) cannot rule out that a circuit of size n^(log* n) computes SAT."
+- Status: unverified (search snippet only).
+
+K2
+- Claim: Pich and Santhanam (STOC 2021, pp. 223-233, DOI 10.1145/3406325.3451117): unconditionally, Cook's theory PV cannot prove, for any nondeterministic poly-time machine M, that L(M) is inapproximable by co-nondeterministic circuits of sub-exponential size; the same holds for a theory supporting a fragment of Jeřábek's APC1, and for Rudich's super-bits conjecture. (No ECCC version was found.)
+- Source: J. Pich, R. Santhanam, "Strong co-nondeterministic lower bounds for NP cannot be proved feasibly", STOC 2021, ACM. Fetched (Oxford ORA record): https://ora.ox.ac.uk/objects/uuid:4bb0ed7a-1983-4d95-8296-ab973094292e
+- Quote: "We show unconditionally that Cook's theory PV formalizing poly-time reasoning cannot prove" "for any non-deterministic poly-time machine M defining a language L(M), that L(M) is inapproximable" "by co-nondeterministic circuits of sub-exponential size."
+- Status: verified (fetched).
+
+K3
+- Claim: Li and Oliveira (STOC 2023, pp. 1051-1057, DOI 10.1145/3564246.3585144; ECCC TR23-022): unconditionally, Jeřábek's APC1 cannot prove strong (non-uniform, average-case) complexity lower bounds separating the third level of the polynomial hierarchy; more generally T^i_PV cannot prove strong Pi_i vs Sigma_i circuit separations; the method is Krajíček's (2011) game-theoretic witnessing, as used by Pich and Santhanam (2021) for PV.
+- Source: Jiatu Li, Igor Carboni Oliveira, "Unprovability of strong complexity lower bounds in bounded arithmetic", ECCC TR23-022 (11 Mar 2023). Fetched: https://eccc.weizmann.ac.il/report/2023/022/
+- Quote: "APC1 cannot prove strong complexity lower bounds separating the third level of the polynomial hierarchy" "In particular, we unconditionally show that" ... "a technique introduced by Krajicek (2011)" "recently employed by Pich and Santhanam (2021)" "to establish the unprovability of lower bounds in PV"
+- Status: verified (fetched) (STOC pages/DOI: unverified (search snippet only)).
+
+K4
+- Claim: 2024 to 2026: Chen, Li, Oliveira show a fixed-polynomial circuit lower bound for SAT is unprovable in intuitionistic IS^1_2 (ECCC TR24-083; arXiv 2404.11841) and note that existing unprovability results are confined to unusually strong lower-bound statements; the same authors' "Reverse mathematics of complexity lower bounds" (FOCS 2024; ECCC 2024/060) studies which lower bounds are equivalent to which axioms. A LICS 2026 paper reports that the rank-method proofs of LST and Forbes formalize in VNC^2, while Polynomial Calculus Resolution cannot efficiently certify superpolynomial algebraic circuit lower bounds. (See also TR25-134 in E4.)
+- Source: https://eccc.uni-trier.de/report/2024/083 ; https://eccc.weizmann.ac.il/report/2024/060/download ; https://drops.dagstuhl.de/storage/00lipics/lipics-vol380-lics2026/LIPIcs.LICS.2026.49/LIPIcs.LICS.2026.49.pdf (none fetched).
+- Quote: none verbatim; search-result summaries as stated.
+- Status: unverified (search snippet only).
+
+==================================================
+(III) RECENT STRUCTURAL RESULTS (TIME-SPACE)
+==================================================
+
+L1
+- Claim: Cook and Mertz (STOC 2024; ECCC TR23-174, Nov 2023): Tree Evaluation is in space O(log n * log log n), improving their 2020 bound of O(log^2 n / log log n); TreeEval was the central candidate for separating P from L via composition, and the result greatly strengthens the case that it is in L, leaving its status as a hard problem for L "a mystery"; the technique uses catalytic ("amortized") branching programs. Goldreich (ECCC TR24-124, Dec 2024) later shaved a Theta(log log(h+l)) factor in the regime h >= l (search snippet), which does not apply to the regime used by Williams.
+- Source: James Cook, Ian Mertz, "Tree Evaluation is in Space O(log n · log log n)", ECCC TR23-174. Fetched: https://eccc.weizmann.ac.il/report/2023/174/ ; Goldreich: https://eccc.weizmann.ac.il/report/2024/124 (not fetched).
+- Quote: "Our main result is to improve the space complexity of TreeEval to O(log n · log log n)" ... "a central candidate for separating polynomial time (P) from logarithmic space (L) via composition." ... "Thus its status as a candidate hard problem for L remains a mystery." ... "amortized branching programs, also known as catalytic branching programs"
+- Status: verified (fetched) (STOC 2024 venue: unverified (search snippet only); Goldreich part: unverified (search snippet only)).
+
+L2
+- Claim: Williams (STOC 2025; ECCC TR25-017, Feb 2025; arXiv 2502.17779; JACM 2026 per a secondary page): every multitape Turing machine running in time t >= n can be simulated in space O(sqrt(t log t)), i.e. TIME[t] is contained in SPACE[O(sqrt(t log t))], improving Hopcroft, Paul, Valiant's O(t/log t) of 1975. Consequences: bounded fan-in circuits of size s can be evaluated in sqrt(s)*poly(log s) space; there are explicit problems solvable in O(n) space that require n^{2-eps} time on multitape TMs; the author describes this as "a little progress" on P vs PSPACE. The key tool is the Cook-Mertz Tree Evaluation algorithm applied to implicitly defined instances.
+- Source: Ryan Williams, "Simulating Time in Square-Root Space", ECCC TR25-017 (24 Feb 2025). Fetched: https://eccc.weizmann.ac.il/report/2025/017/ ; also fetched arXiv:2502.17779 "Simulating Time With Square-Root Space" (comments: "To appear in ACM STOC 2025"): https://arxiv.org/abs/2502.17779
+- Quote: "every multitape Turing machine running in time t can be simulated in space only O(sqrt(t log t))" ... "bounded fan-in circuits of size s can be evaluated on any input in only sqrt(s) · poly(log s) space" ... "explicit problems solvable in O(n) space which require n^{2-epsilon} time on a multitape Turing machine" ... "thereby making a little progress on the P versus PSPACE problem." ... "leveraging the remarkable space-efficient algorithm for Tree Evaluation recently found by Cook and Mertz"
+- Status: verified (fetched).
+
+L3
+- Claim: Shalunov (CCC 2026, LIPIcs 383, 3:1-3:13, DOI 10.4230/LIPIcs.CCC.2026.3; arXiv 2504.20950; ECCC TR25-078): a direct reduction from Circuit Value to Tree Evaluation (no Turing machines) evaluates size-s circuits in O(sqrt(s log s)) space, improving Williams's sqrt(s)*polylog(s) circuit bound; via the O(t log t) circuit simulation of time-t TMs it recovers a slightly weakened version of Williams's theorem.
+- Source: Yakov Shalunov, "Improved Bounds on the Space Complexity of Circuit Evaluation", 41st Computational Complexity Conference (CCC 2026), LIPIcs 383, pp. 3:1-3:13. Fetched: https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.CCC.2026.3
+- Quote: "we provide a direct reduction from circuit value to tree evaluation without passing through Turing machines" "simultaneously improving the bound to O(sqrt{s log s}) space" ... "we can recover a slightly weakened version of Williams' result" ... "using the Cook-Mertz (STOC 2024) tree evaluation procedure."
+- Status: verified (fetched).
+
+L4 (OPEN)
+- Claim: Removing the sqrt(log t) factor (TIME[t] in SPACE[O(sqrt t)]) or pushing the exponent below 1/2 is open; Williams's O(sqrt(t log t)) remains the record as of August 2026. A preprint claiming TIME[t] in SPACE[O(sqrt t)] "via Tree Height Compression" (Nye, arXiv 2508.14831, Aug 2025, per search) was withdrawn in January 2026 with an author-acknowledged error (per the secondary tracker page; the identification of the withdrawn preprint with Nye's is my inference from the two sources).
+- Source: Problem tracker page "Improve TIME[t] ⊆ SPACE[sqrt(t log t)]: shave the sqrt(log t) factor, or push the exponent below 1/2" (page states "verified 2026-08-10"). Fetched: https://lacker.io/complexity/problems/time-space-sqrt-simulation.html ; Nye preprint: https://arxiv.org/abs/2508.14831v2 (not fetched).
+- Quote: "Williams, STOC 2025 (arXiv:2502.17779; JACM 2026)" ... "removing the logarithmic overhead the current proof inherits from its tree-evaluation subroutine" ... "was withdrawn in January 2026 with an author-acknowledged error"
+- Status: verified (secondary: lacker.io); the Nye preprint's claim: unverified (search snippet only).
+
+M1
+- Claim: Catalytic computation (Buhrman, Cleve, Koucký, Loff, Speelman, STOC 2014, pp. 857-866, DOI 10.1145/2591796.2591874; ECCC TR14-053): catalytic logspace CL contains uniform TC^1 (hence the determinant) and CL is contained in ZPP. Its role in the above: the Cook-Mertz TreeEval algorithm is built from catalytic branching programs (verified quote in L1), and a 2026 seminar abstract (Mertz, "Computing with Full Memory in 2026", Waterloo, Aug 2026) singles out Williams's time-space result as a major application of catalytic methods. The main survey is Mertz, "Reusing Space: Techniques and Open Problems", BEATCS 141 / ECCC TR23-179 (2023; no 2024 to 2026 survey found). 2025 catalytic results found: Koucký, Mertz, Pyne, Sami "Collapsing catalytic classes" (FOCS 2025); Agarwala, Mertz, bipartite matching in CL (FOCS 2025).
+- Source: https://eccc.weizmann.ac.il/report/2014/053 ; https://ir.cwi.nl/pub/22659 ; https://eccc.weizmann.ac.il/report/2023/179/ ; https://cs.uwaterloo.ca/events/seminar-algorithms-and-complexity-computing-with-full-memory-in-2026 (none fetched); catalytic link to TreeEval from fetched https://eccc.weizmann.ac.il/report/2023/174/
+- Quote (fetched, Cook-Mertz): "amortized branching programs, also known as catalytic branching programs"; BCKLS content: none verbatim; search-result summary: "uniform TC^1 circuits, which include determinant computation ... can run with only logarithmic clean workspace" and "catalytic logspace fits inside ZPP".
+- Status: BCKLS bounds and 2025/2026 context: unverified (search snippet only); catalytic role in Cook-Mertz: verified (fetched).
+
+==================================================
+WHAT IS OPEN (with the page that says so)
+==================================================
+1. Permanent vs determinant / VP_ws vs VNP: open. Best dc lower bound still quadratic (A1, snippet); "it is a long standing open problem to prove a lower bound which is super linear in max{n,d}" (Kumar-Volk, fetched, A2). GCT route: occurrence obstructions are dead ("We prove that this approach is impossible", B2), multiplicity obstructions are not ruled out ("we do not rule out the general approach ... via multiplicity obstructions", B2).
+2. Superpolynomial lower bounds for general (unbounded-depth) algebraic circuits: open (unverified (memory): Baur-Strassen Omega(n log d) remains the best; no fetched page states this). Constant depth is solved over all fields (C1, C2).
+3. Is MCSP NP-hard: open; "It has been an open question since Levin's seminal work on NP-completeness whether MCSP is NP-complete." (Ilango, fetched, G5/G9); known only for partial MCSP (G4) and with a random oracle (G5).
+4. Tree Evaluation in L: open; "its status as a candidate hard problem for L remains a mystery" (Cook-Mertz, fetched, L1).
+5. P vs PSPACE: open; Williams's theorem is "a little progress on the P versus PSPACE problem" (fetched, L2). Improving sqrt(t log t) to sqrt(t): open per the tracker page (secondary, L4).
+6. Near-maximum circuit lower bounds for classes below S_2E (e.g. for NP, Delta_2E, ZPE^NP without advice): no 2025 or 2026 result found (H5, search only); the frontier is S_2E a.e. (H4, fetched) and E^{prMA}/1 (H5).
+7. Magnification: the locality barrier (I3, fetched) explains why no known weak-model lower bound has triggered magnification; no 2025 or 2026 breakthrough found.
+
+==================================================
+2025 TO 2026 SEARCH NOTES (requested queries)
+==================================================
+- "ECCC 2026 permanent determinant": only TR26-097 (symmetric dc of diagonal power sums, n^2/(2e)); nothing on the permanent (A3).
+- "meta-complexity 2026": TR26-021 Hu, Manor, Oliveira (STOC 2026; rKt violates symmetry of information); arXiv 2609.02687 (quantum one-way puzzles via time-bounded Kolmogorov complexity, Sept 2026, not examined) (G8).
+- "range avoidance 2026": TR26-118 Ren-Williams (July 2026, E^{prMA}/1 near-maximum); TR25-049 Huang, Li, Zhong (ITCS 2026, NC^0_k avoidance algorithm); TR24-182 Chen, Li, Liang revised June 2026 (H5).
+- "MCSP NP-hard 2025": no NP-hardness for total MCSP; Carmosino, Dang, Jackman (arXiv 2511.16903, Nov 2025) describe ETH-hardness of total MCSP as still open; Hirahara, Ilango, Loff (July 2025) NP-hardness of two-way communication complexity (G8).
+- "square-root space 2026 improvement": Shalunov CCC 2026 (circuit side, L3); the only claimed improvement of the TM bound (Nye, Aug 2025) was withdrawn Jan 2026 per the tracker page (L4). Williams's bound stands; journal version JACM 2026 (secondary).
+- Low-depth algebraic 2025 to 2026: TR26-104 (depth-5, small fields, C4); TR25-134 and LICS 2026 on provability of LST-type bounds (E4, K4).
+
+Gaps: Mignon-Ressayre, Mulmuley-Sohoni (SIAM 403), Ikenmeyer-Panova, Ikenmeyer-Kandasamy, Kabanets-Cai, OS18/MMW19/CJW19/OPS19, Razborov 1995, Pich 2015, BCKLS 2014 and all 2026 items other than TR26-118 and CCC 2026 Shalunov were not fetched (fetch budget exhausted) and are marked accordingly.

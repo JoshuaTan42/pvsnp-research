@@ -1,0 +1,335 @@
+PROPOSITIONAL PROOF COMPLEXITY: VERIFIED FACT SHEET (compiled 2026-10-08)
+
+METHOD AND BUDGET
+- Tool budget used: 29 WebSearch (28 returned results; the 29th, for Grigoriev 2001 / Schoenebeck 2008 snippets, failed on a session limit) and 35 WebFetch (all used). No files were written.
+- Two long PDFs were fetched by WebFetch and saved locally by the tool: the Buss and Nordström survey chapter and the Alekseev ToC 2026 article. Their text layers were read with a Python stdlib (zlib) extractor run inline. Quotes from these two PDFs are verbatim from the text layer, with math symbols restored (the text layer renders Greek letters, "≥", "≠" and sub/superscripts as placeholders) and are contiguous readable fragments, because the text layer drops a few words adjacent to citation hyperlinks. Such quotes are marked "[PDF text layer]".
+- Abbreviation [BN21] = Sam Buss and Jakob Nordström, "Proof Complexity and SAT Solving", Chapter 7 of the Handbook of Satisfiability, 2nd edition, IOS Press 2021. Page header as printed: "Chapter preprint of the second edition of the Handbook of Satisfiability (2021) Armin Biere, Marijn Heule, Hans van Maaren and Toby Walsh (Eds.) Published by IOS Press." Fetched URL: https://www.jakobnordstrom.se/docs/publications/ProofComplexityChapter.pdf (the older KTH URL https://www.csc.kth.se/~jakobn/research/ProofComplexityChapter.pdf returned HTTP 404). Bibliographic entries "as printed" below are copied from the chapter's reference list.
+- WebFetch's reader refuses to return quotes longer than about 125 characters, so several quotes are short.
+- Rule 5 compliance: no em-dashes are used anywhere below (page ranges use plain hyphens).
+
+=== A. FRAMEWORK ===
+
+A1
+- Claim: Cook and Reckhow (JSL 1979) defined propositional proof systems and p-simulation, and connected proof size to NP vs coNP: if every tautology (equivalently every unsatisfiable formula) has a polynomial-size proof in some proof system then NP = coNP; the full statement is the equivalence NP = coNP iff a polynomially bounded proof system exists.
+- Source: (i) Yaroslav Alekseev, "A Lower Bound for Polynomial Calculus with Extension Rule", Theory of Computing, Volume 22(4), 2026, pp. 1-29, Special Issue CCC 2021, DOI 10.4086/toc.2026.v022a004; fetched https://theoryofcomputing.org/articles/v022a004/v022a004.pdf. (ii) [BN21] definitions section and reference list, entry as printed: "Stephen A. Cook and Robert A. Reckhow. The relative efficiency of propositional proof systems. Journal of Symbolic Logic, 44(1):36-50, March 1979. Preliminary version in STOC '74."
+- Quote: Alekseev [PDF text layer]: "In the same work Cook and Rechow introduced a notion of p-simulation: a proof system Π p-simulates a proof system Ψ if every tautology has a proof in Π of size at most polynomially larger than in its shortest proof in Ψ" and "has a short proof of unsatisfiability, then NP = coNP". [BN21] [PDF text layer]: "We say that P' polynomially simulates P if, for all x ∈ L, the size of the shortest P'-proof of x is polynomially bounded by the size of the shortest P-proof of x."
+- Status: verified (fetched) for the citation, the p-simulation definition, and the direction "polynomially bounded proof system implies NP = coNP". The converse direction of the "iff" was not read on any fetched page: unverified (memory). (The Cambridge Core JSL page https://www.cambridge.org/core/journals/journal-of-symbolic-logic/article/abs/relative-efficiency-of-propositional-proof-systems/218048250981F835B4B2A4080205A0BA was located by search but not fetched.)
+
+=== B. RESOLUTION ===
+
+B1
+- Claim: Haken (1985): the pigeonhole principle PHP^{n+1}_n (clauses "every pigeon gets a hole" and "no hole gets two pigeons") requires resolution refutation length exp(Ω(n)); the proof extends to the onto functional variant.
+- Source: [BN21], Section 7.4.1; entry as printed: "Armin Haken. The intractability of resolution. Theoretical Computer Science, 39(2-3):297-308, August 1985." Fetched URL: https://www.jakobnordstrom.se/docs/publications/ProofComplexityChapter.pdf
+- Quote [PDF text layer]: "require length exp(Ω(n)) in resolution for m = n + 1 pigeons, and his proof can be extended to work also for the onto FPHP formulas"
+- Status: verified (fetched)
+
+B2
+- Claim: Urquhart (1987): Tseitin formulas on expander graphs require resolution length exp(Ω(N)) (N = formula size), the first truly exponential resolution lower bound in terms of formula size; Chvátal and Szemerédi (1988): random k-CNF formulas with a large enough constant clause density require resolution length exp(Ω(N)) asymptotically almost surely.
+- Source: [BN21], Section 7.4.1; entries as printed: "Alasdair Urquhart. Hard examples for resolution. Journal of the ACM, 34(1):209-219, January 1987." and "Vašek Chvátal and Endre Szemerédi. Many hard examples for resolution. Journal of the ACM, 35(4):759-768, October 1988." Fetched URL as in B1.
+- Quote [PDF text layer]: "The first truly exponential lower bound on length was obtained for Tseitin formulas"; "exp(Ω(N)) if the underlying graph is a well-connected so-called expander graph"; "exp(Ω(N)) to refute such formulas (again asymptotically almost surely)".
+- Status: verified (fetched)
+
+B3
+- Claim: Ben-Sasson and Wigderson (JACM 2001) size-width relation: for a k-CNF over n variables, resolution refutation length is at least exp(Ω((refutation width - k)^2 / n)), so width lower bounds imply length lower bounds.
+- Source: [BN21], Section 7.4.2, inequality (7.9); entry as printed: "Eli Ben-Sasson and Avi Wigderson. Short proofs are narrow- resolution made simple. Journal of the ACM, 48(2):149-169, March 2001. Preliminary version in STOC '99." Fetched URL as in B1.
+- Quote [PDF text layer]: "strong enough width lower bounds imply strong length lower bounds" and "(7.9) where "refutation length" and "refutation width" mean the minimum length and minimum width, respectively, of any resolution refutations of the formula."
+- Status: verified (fetched)
+
+B4
+- Claim: CDCL with nondeterministic decisions, unlimited clause retention, an asserting learning scheme (e.g. 1UIP) and restarts polynomially simulates resolution (Pipatsrisawat and Darwiche, AIJ 2011; Atserias, Fichte and Thurley, JAIR 2011); the survey stresses this is a result about nondeterministic solvers.
+- Source: [BN21], Section 7.3; entries as printed: "Knot Pipatsrisawat and Adnan Darwiche. On the power of clause-learning SAT solvers as resolution engines. Artificial Intelligence, 175(2):512-525, February 2011. Preliminary version in CP '09." and "Albert Atserias, Johannes Klaus Fichte, and Marc Thurley. Clause-learning algorithms with many restarts and bounded-width resolution. Journal of Artificial Intelligence Research, 40:353-373, January 2011. Preliminary version in SAT '09." Fetched URL as in B1.
+- Quote [PDF text layer]: "shown that nondeterministic CDCL can be as efficient as the resolution proof system except possibly for a polynomial blow-up."
+- Status: verified (fetched)
+
+=== C. CUTTING PLANES ===
+
+C1
+- Claim: Pudlák (JSL 1997) proved exponential cutting planes lower bounds for clique-colouring formulas via a Craig interpolation argument that extracts a small monotone (real) circuit for clique from a short CP refutation.
+- Source: [BN21], Section 7.7.2; entry as printed: "Pavel Pudlák. Lower bounds for resolution and cutting plane proofs and monotone computations. Journal of Symbolic Logic, 62(3):981-998, September 1997." Fetched URL as in B1.
+- Quote [PDF text layer]: "He showed that from any short cutting planes refutation of the formula one can extract a small monotone circuit for clique, which reduces the problem to a question about size lower bounds for monotone circuits."
+- Status: verified (fetched)
+
+C2
+- Claim: Fleming, Pankratov, Pitassi and Robere (FOCS 2017) and, independently, Hrubeš and Pudlák (FOCS 2017) proved exponential cutting planes lower bounds for random k-CNF formulas with k = Θ(log n).
+- Source: (i) Noah Fleming, Denis Pankratov, Toniann Pitassi, Robert Robere, "Random CNFs are Hard for Cutting Planes", arXiv:1703.02469 (submitted 7 Mar 2017), fetched https://arxiv.org/abs/1703.02469 (abstract: CP refutations of random k-SAT require exponential size when k is logarithmic in the number of variables). (ii) [BN21], Section 7.7.2; entry as printed: "Pavel Hrubeš and Pavel Pudlák. Random formulas, monotone circuits, and interpolation. In Proceedings of the 58th Annual IEEE Symposium on Foundations of Computer Science (FOCS '17), pages 121-131, October 2017."
+- Quote: [BN21] [PDF text layer]: "In a breakthrough result, exponential length lower bounds for random CNF formulas of logarithmic width were obtained"
+- Status: verified (fetched)
+
+C3
+- Claim: Garg, Göös, Kamath and Sokolov (STOC 2018): any CNF hard for resolution (large width) becomes, after gadget composition (lifting), hard for every proof system whose lines are computed by efficient communication protocols; the result extends to monotone real circuits and hence gives new cutting planes lower bounds, including weakly exponential CP lower bounds for lifted random O(1)-CNFs.
+- Source: ECCC TR17-175, "Monotone Circuit Lower Bounds from Resolution", Ankit Garg, Mika Göös, Pritish Kamath, Dmitry Sokolov (published 14 Nov 2017; Revision #1 20 Apr 2019), fetched https://eccc.weizmann.ac.il/report/2017/175/; [BN21] entry as printed: "... In Proceedings of the 50th Annual ACM Symposium on Theory of Computing (STOC '18), pages 902-911, June 2018."
+- Quote: ECCC abstract: "extends to monotone real circuits" and "yields new lower bounds for the Cutting Planes proof system". [BN21] [PDF text layer]: "k-CNF formulas (for k = O(1)) that require large resolution width, and then applies lifting as described in Section 7.7.1, then this yields formulas which are weakly exponentially hard for cutting planes."
+- Status: verified (fetched)
+
+C4
+- Claim: OPEN: cutting planes lower bounds for random k-CNF formulas with constant k ≥ 3 (as opposed to k = Θ(log n)) are open (stated as Open Problem 7.16 in the 2021 survey; a May 2025 seminar abstract found by search still describes it as not known).
+- Source: [BN21], Section 7.7.2, Open Problem 7.16. Fetched URL as in B1.
+- Quote [PDF text layer]: "Open Problem 7.16. Prove length lower bounds for cutting planes refutations of random k-CNF formulas for some constant k ≥ 3."
+- Status: verified (fetched) as of the 2021 survey; the 2025 status is unverified (search snippet only: TIFR seminar abstract, S. K. Bhattacharya, May 2025).
+
+C5
+- Claim: Dadush and Tiwari (CCC 2020) showed that Tseitin formulas (on any graph) have quasi-polynomial size cutting planes refutations, disproving the conjecture that Tseitin formulas are exponentially hard for CP.
+- Source: Daniel Dadush, Samarth Tiwari, "On the Complexity of Branching Proofs", arXiv:2006.04124 (7 Jun 2020), fetched https://arxiv.org/abs/2006.04124; [BN21] entry as printed: "Daniel Dadush and Samarth Tiwari. On the complexity of branching proofs. In Proceedings of the 35th Annual Computational Complexity Conference (CCC '20), volume 169 of Leibniz International Proceedings in Informatics (LIPIcs), pages 34:1-34:35, July 2020."
+- Quote: arXiv abstract: Tseitin formulas "have quasi-polynomial sized cutting plane (CP) refutations." [BN21] [PDF text layer]: "Tseitin formulas have cutting planes refutations of quasipolynomial"
+- Status: verified (fetched)
+
+=== D. BOUNDED-DEPTH FREGE ===
+
+D1
+- Claim: Ajtai (FOCS 1988) proved superpolynomial bounded-depth Frege lower bounds for PHP^{n+1}_n; Pitassi, Beame, Impagliazzo (1993) and Krajíček, Pudlák, Woods (1995) improved this to exponential lower bounds (size exp(n^{ε_d}) for some ε_d > 0 depending on depth d).
+- Source: [BN21], Section 7.10; entries as printed: "Miklós Ajtai. The complexity of the pigeonhole principle. In Proceedings of the 29th Annual IEEE Symposium on Foundations of Computer Science (FOCS '88), pages 346-355, October 1988."; "Toniann Pitassi, Paul Beame, and Russell Impagliazzo. Exponential lower bounds for the pigeonhole principle. Computational Complexity, 3:97-140, 1993. Preliminary version in STOC '92."; "Jan Krajíček, Pavel Pudlák, and Alan R. Woods. An exponential lower bound to the size of bounded depth Frege proofs of the pigeonhole principle. Random Structures and Algorithms, 7(1):15-40, 1995. Preliminary version in STOC '92." Fetched URL as in B1.
+- Quote [PDF text layer]: "There are also exponential lower bounds on the size of depth-d LK proofs for all constant d > 0." and "This was substantially extended to give strong lower bounds on the size of bounded-depth LK [PBI93, KPW95] with m = n + 1 pigeons and n holes"
+- Status: verified (fetched) for the existence and citations of the exponential bounds; the exact exponent form exp(n^{ε_d}) is unverified (memory) because the text layer garbled the formula.
+
+D2
+- Claim: Pitassi, Rossman, Servedio and Tan (STOC 2016, "expander switching lemma"): depth-d Frege (d-LK) refutations of Tseitin formulas on 3-regular expanders require size exp(Ω((log n)^2 / d^2)), so polynomial-size refutations need depth Ω(√(log n)).
+- Source: [BN21], Section 7.10 (cited as [PRST16]). Fetched URL as in B1. (STOC 2016 venue, "Poly-logarithmic Frege depth lower bounds via an expander switching lemma", pp. 644-657: search snippet only.)
+- Quote [PDF text layer]: "by showing a lower bound of exp(Ω((log n)^2/d^2)) for the size of d-LK refutations of Tseitin formulas on 3-regular expander graphs where n is the number of vertices in the graph."
+- Status: verified (fetched) (venue details: unverified, search snippet only)
+
+D3
+- Claim: Håstad (FOCS 2017; JACM 2021): depth-d Frege refutations of Tseitin on the n×n grid require size exp(Ω(n^{1/(58(d+1))})), implying depth Ω(log n / log log n) for polynomial size. Håstad and Risse (FOCS 2022) later improved the exponent to roughly 1/d.
+- Source: ECCC TR17-142, "On small-depth Frege proofs for Tseitin for grids", Johan Håstad (21 Sep 2017; Revision #1 8 Nov 2018), fetched https://eccc.weizmann.ac.il/report/2017/142/; [BN21] Section 7.10 and entry as printed: "Johan Håstad. On small-depth frege proofs for Tseitin for grids. In Proceedings of the 58th Annual IEEE Symposium on Foundations of Computer Science (FOCS '17), pages 97-108, October 2017."
+- Quote: ECCC: "We prove that a small-depth Frege refutation of the Tseitin contradiction on the grid requires subexponential size." [BN21] [PDF text layer]: "obtain an improved size lower bound for d-LK of exp(Ω(n^{1/58(d+1)})) and an improved depth lower bound of Ω(log n / log log n)."
+- Status: verified (fetched). The Håstad-Risse 2022 improvement (arXiv:2209.05839, FOCS 2022, SICOMP) is unverified (search snippet only). JACM 2021 venue (DOI 10.1145/3425606): unverified (search snippet only).
+
+D4
+- Claim: Håstad (FOCS 2023; journal version TheoretiCS 2025): depth-d Frege proofs of the (graph) pigeonhole principle on an n×n grid require size exponential in n^{Ω(1/d)}; if each line has size at most M, the number of lines is exponential in n/(log M)^{O(d)}; the technique is a new family of random restrictions with switching lemmas.
+- Source: ECCC TR23-042, "On small-depth Frege proofs for PHP", Johan Håstad, 3 April 2023, fetched https://eccc.weizmann.ac.il/report/2023/042/. (FOCS 2023; TheoretiCS Vol. 4 (2025), Article 27, DOI 10.46298/theoretics.25.27: search snippet only. Note from search: the ECCC/FOCS text treats the one-to-one graph PHP, later versions the functional onto variant.)
+- Quote: "the proof needs to be of size exponential in $n^{\Omega (1/d)}$." and "the number of lines needed is exponential in $n/(\log M)^{O(d)}$."
+- Status: verified (fetched)
+
+D5
+- Claim: OPEN: superpolynomial bounded-depth Frege lower bounds for random 3-CNFs with linearly many clauses. Best known (Gryaznov and Talebanfard, 2024): for each fixed depth k there is ε_k > 0 such that depth-k Frege refutations of random n-variable 3-CNFs need Ω(n^{1+ε_k}) steps with high probability (super-linear, not super-polynomial).
+- Source: Svyatoslav Gryaznov, Navid Talebanfard, "Bounded-Depth Frege Lower Bounds for Random 3-CNFs via Deterministic Restrictions", arXiv:2403.02275 (v1 4 Mar 2024, v3 2 Sep 2024), fetched https://arxiv.org/abs/2403.02275. Also [BN21] (random k-CNF are the only discussed family not known to have polynomial-size Frege or extended resolution proofs).
+- Quote: arXiv abstract calls superpolynomial bounded-depth Frege lower bounds for random 3-CNFs a "major open problem" and describes the work as "the first step towards addressing this question"; main theorem phrase: "any depth-$k$ Frege refutation of a random $n$-variable 3-CNF". [BN21] [PDF text layer]: "The only family of formulas discussed so far for which it is not known whether they possess polynomial-size Frege and/or extended resolution proofs are random k-CNF formulas; the usual conjecture is that they do not."
+- Status: verified (fetched); the exact bound Ω(n^{1+ε_k}) is unverified (search snippet only), the fetched abstract reader only confirmed "super-linear".
+
+=== E. AC0[p]-FREGE, FREGE, EXTENDED FREGE ===
+
+E1
+- Claim: No superpolynomial lower bounds are known for AC0[p]-Frege (bounded-depth Frege with mod-p gates) for any formula family, even for p = 2 (bounded-depth LK(⊕)); this is the frontier: AC0-Frege has exponential lower bounds, AC0[p]-Frege has none, despite the Razborov-Smolensky circuit lower bounds.
+- Source: (i) [BN21], Section 7.10, Open Problem 7.22 (fetched URL as in B1). (ii) ECCC TR19-024, "The Surprising Power of Constant Depth Algebraic Proofs", Russell Impagliazzo, Sasank Mouli, Toniann Pitassi (20 Feb 2019; revised 11 Jan 2020), fetched https://eccc.weizmann.ac.il/report/2019/024.
+- Quote: [BN21] [PDF text layer]: "Nonetheless, it is an open problem to obtain superpolynomial lower bounds for this proof system. Open Problem 7.22. Let LK(⊕) denote LK extended with a parity (exclusive or) logical connective. Are there exponential, or even superpolynomial, lower bounds on the size of bounded-depth LK(⊕) proofs?" TR19-024: "there are no significant lower bounds for AC^0[p]-Frege." and "However to date there has been no progress on AC^0[p]-Frege lower bounds."
+- Status: verified (fetched). No 2024-2026 page found that reports any superpolynomial AC0[p]-Frege lower bound (see M3 for the closest 2025/2026 items).
+
+E2
+- Claim: Superpolynomial lower bounds for Frege and for extended Frege are open (EF considered harder); the survey lists as open problems finding combinatorial candidates separating Frege from EF and giving a conditional exponential Frege lower bound under an assumption weaker than NP ≠ coNP. The best known explicit Frege size lower bound is only quadratic (Ω(n^2) size, Ω(n) lines, by a subformula-counting argument attributed to Krajíček's 1995 book).
+- Source: (i) Alekseev, Theory of Computing 22(4) 2026 (fetched PDF as in A1). (ii) [BN21], Section 7.9, Open Problems 7.19 and 7.20 (fetched URL as in B1). (iii) Quadratic bound: Buss, lecture notes 2002 (https://mathweb.ucsd.edu/~sbuss/CourseWeb/Math267_2002W/lecture6.pdf) and problem page https://lacker.io/complexity/problems/frege-quadratic-size-barrier.html, both located by search only.
+- Quote: Alekseev [PDF text layer]: "A major proof complexity problem is to prove a superpolynomial lower bound on the length of Frege proofs of arbitrary depth. A more difficult question is to prove an Extended Frege lower bound." [BN21] [PDF text layer]: "Open Problem 7.19. Find new combinatorial candidates for exponentially separating Frege and extended Frege proofs. Open Problem 7.20. Give a conditional exponential lower bound for Frege proofs using some assumption weaker than NP ≠ coNP."
+- Status: verified (fetched) for openness and the two open problems; the "quadratic is the best known explicit lower bound" statement is unverified (search snippet only).
+
+=== F. ALGEBRAIC AND SEMIALGEBRAIC SYSTEMS ===
+
+F1
+- Claim: Nullstellensatz was introduced as a proof system by Beame, Impagliazzo, Krajíček, Pitassi and Pudlák (FOCS 1994 / Proc. LMS 1996); Nullstellensatz degree is characterized exactly by d-designs (a d-design exists iff there is no degree-d refutation), the basic tool for NS degree lower bounds.
+- Source: [BN21], Section 7.5.1; entry as printed: "Paul Beame, Russell Impagliazzo, Jan Krajíček, Toniann Pitassi, and Pavel Pudlák. Lower bounds on Hilbert's Nullstellensatz and propositional proofs. Proceedings of the London Mathematical Society, 73(3):1-26, 1996." (FOCS '94 version pages 794-806 also listed). Fetched URL as in B1.
+- Quote [PDF text layer]: "Designs provide a characterization of Nullstellensatz degree in that there is a d-design for P if and only if there is no Nullstellensatz refutation of P in degree d"
+- Status: verified (fetched). The specific NS degree bound for PHP from the 1996 paper was not read on a fetched page: unverified (memory).
+
+F2
+- Claim: Polynomial calculus was introduced by Clegg, Edmonds and Impagliazzo (STOC 1996); Razborov (1998) proved PC degree lower bounds for the pigeonhole principle; Impagliazzo, Pudlák and Sgall (1999) proved a size-degree relation for PC exactly analogous to the resolution size-width bound (size at least exp(Ω((degree - k)^2 / n)) for k-CNFs), so PHP^{n+1}_n is exponentially hard for PC size.
+- Source: [BN21], Sections 7.5.2-7.5.3; entries as printed: "Matthew Clegg, Jeffery Edmonds, and Russell Impagliazzo. Using the Groebner basis algorithm to find proofs of unsatisfiability. In Proceedings of the 28th Annual ACM Symposium on Theory of Computing (STOC '96), pages 174-183, May 1996."; "Alexander A. Razborov. Lower bounds for the polynomial calculus. Computational Complexity, 7(4):291-324, December 1998."; "Russell Impagliazzo, Pavel Pudlák, and Jiří Sgall. Lower bounds for the polynomial calculus and the Gröbner basis algorithm. Computational Complexity, 8(2):127-144, 1999." Fetched URL as in B1.
+- Quote [PDF text layer]: "In the other direction, a lower bound on size in terms of degree exactly analogous to the size-width bound (7.9)" and "Hardness of the standard CNF encoding (7.7a)-(7.7b) of pigeonhole principle formulas" (cited to [AR03, Raz98, IPS99]).
+- Status: verified (fetched). Razborov's exact degree bound (n/2 + 1 type) was not read on a fetched page: unverified (memory).
+
+F3
+- Claim: Random k-CNF formulas require linear PC degree and exponential PC size: Ben-Sasson and Impagliazzo (1999) over fields of characteristic not 2, and Alekhnovich and Razborov (2003, "non-binomial case") over any field including characteristic 2.
+- Source: [BN21], Section 7.5.3 (cited as [BSI99] and [AR03]). Fetched URL as in B1. (AR03 bibliographic details, Proc. Steklov Inst. Math. 242, 2003, "Lower Bounds for Polynomial Calculus: Nonbinomial Case": search snippet only, https://mathnet.ru/eng/tm403.)
+- Quote [PDF text layer]: "Strong degree and size lower bounds on random k-CNF formulas were shown" and "and lower bounds in any characteristic including 2 were established by"
+- Status: verified (fetched) for the statements; AR03 citation details unverified (search snippet only).
+
+F4
+- Claim: Sum-of-squares / Positivstellensatz degree lower bounds: Grigoriev (TCS 2001) proved a linear degree lower bound for Positivstellensatz calculus refutations of parity (Tseitin) formulas; Schoenebeck (FOCS 2008) proved linear-level Lasserre (SoS) lower bounds for random k-CSPs including random k-CNF. The Sherali-Adams system (1990) and Lasserre (2001) hierarchies are the LP and SDP counterparts.
+- Source: [BN21], Section 7.7.5 (names Sherali-Adams [SA90], Positivstellensatz [GV01], Lasserre [Las01a] and Sum-of-Squares as proof systems); the specific Grigoriev 2001 and Schoenebeck 2008 statements were not read on any fetched page (the WebSearch for them failed on a session limit).
+- Quote [PDF text layer, BN21]: "These include the Lovász-Schrijver [LS91], Sherali-Adams [SA90], Positivstellensatz [GV01, Pud99], Lasserre proof [Las01a]" (citation keys reconstructed from the text layer).
+- Status: unverified (memory) for the Grigoriev and Schoenebeck bounds; verified (fetched) only for the existence of these systems as described in the survey.
+
+=== G. RESOLUTION OVER PARITIES Res(⊕) ===
+
+G1
+- Claim: Itsykson and Sokolov (APAL 2020; conference version 2014) introduced Res(⊕), resolution operating on disjunctions of linear equations over F2, and proved exponential lower bounds on the size of tree-like Res(⊕) proofs.
+- Source: Alekseev, Theory of Computing 22(4) 2026, Section 1 (fetched PDF as in A1); reference as printed there: "Dmitry Itsykson and Dmitry Sokolov: Resolution over linear equations modulo two. Ann. Pure Appl. Logic doi:10.1016/j.apal.2019.102722". (APAL vol. 171, issue 1, article 102722, January 2020: search snippet only.)
+- Quote [PDF text layer]: "operates with disjunctions of linear equalities over F2, and proved an exponential lower bound on the size of tree-like Res(⊕)-proofs."
+- Status: verified (fetched)
+
+G2
+- Claim: Efremenko, Garlík and Itsykson (STOC 2024): any regular Res(⊕) refutation of the binary pigeonhole principle BPHP^{n+1}_n has size 2^{Ω(n^{1/3}/log n)}, the first superpolynomial lower bound for a fragment of dag-like Res(⊕) that is exponentially stronger than tree-like Res(⊕); the abstract states that a superpolynomial lower bound for (general) dag-like Res(⊕) remains open.
+- Source: ECCC TR23-187, "Lower bounds for regular resolution over parities", Klim Efremenko, Michal Garlik, Dmitry Itsykson (Revision #2, 24 September 2024), fetched https://eccc.weizmann.ac.il/report/2023/187/. STOC 2024 attribution: ECCC TR24-128 page (fetched, see G4) credits "Efremenko, Garlik, and Itsykson (STOC 2024)".
+- Quote: proving a superpolynomial lower bound for dag-like Res(⊕) "remains a highly challenging open question." TR24-128 page: they "established an exponential lower bound for regular Res(⊕)."
+- Status: verified (fetched). The exact bound 2^{Ω(∛n/log n)} is as summarized by the fetch reader (not a verbatim quote). SICOMP 2025 journal version: unverified (search snippet only).
+
+G3
+- Claim: Bhattacharya, Chattopadhyay and Dvořák (CCC 2024) showed that regular Res(⊕) cannot polynomially simulate resolution (exponential separation). Chattopadhyay and Dvořák (ECCC TR24-132; CCC 2025) proved super-critical width-size trade-offs for tree-like Res(⊕) via a lifting theorem for tree-like affine DAGs.
+- Source: ECCC TR24-128 page (fetched, see G4) for the BCD attribution: "Bhattacharya, Chattopadhyay, and Dvorak (CCC 2024)". Chattopadhyay-Dvořák: https://eccc.weizmann.ac.il/report/2024/132 and https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.CCC.2025.24, located by search only.
+- Quote: TR24-128 page (as relayed by the fetch reader): the page cites Bhattacharya, Chattopadhyay and Dvořák (CCC 2024) "as showing that regular Res(⊕) cannot polynomially simulate resolution."
+- Status: verified (fetched) for the BCD statement via the TR24-128 page (not the CCC 2024 paper itself); Chattopadhyay-Dvořák trade-off: unverified (search snippet only).
+
+G4
+- Claim: Alekseev and Itsykson (STOC 2025; ECCC TR24-128, revised June 2025 as "Lifting to Bounded-Depth and Regular Resolutions over Parities via Games"): a game-based lifting method shows that formulas of large resolution depth lifted with a 2-stifling gadget (e.g. Maj_5) require exponential-size regular Res(⊕) refutations, lifted Tseitin formulas are hard for regular Res(⊕), and depth c·n·log log n Res(⊕) refutations require exponential size (hence top-regular Res(⊕) lower bounds); they also separate resolution (depth O(√n)) from regular Res(⊕) (size 2^{Ω(√n)}). The revised abstract states that superpolynomial Res(⊕) size lower bounds remain open.
+- Source: ECCC TR24-128, Yaroslav Alekseev and Dmitry Itsykson (original 27 Aug 2024 "Lifting to regular resolution over parities via games"; Revision #2 29 June 2025), fetched https://eccc.weizmann.ac.il/report/2024/128. STOC 2025 venue: search snippet only.
+- Quote: Revision #2: proving superpolynomial lower bounds on proof size in Res(⊕) "remains a significant open challenge." Earlier version: "a challenging open question to prove a superpolynomial lower bound on the proof size in this system."
+- Status: verified (fetched) (STOC 2025 venue: unverified, search snippet only)
+
+G5
+- Claim: Bounded-depth Res(⊕), 2025: Byramji and Impagliazzo (ECCC TR25-118, Aug 2025; arXiv Nov 2025) proved that any depth N^{2-ε} Res(⊕) proof of BPHP^{n+1}_n has size exp(Ω̃(N^ε)) (previously no superpolynomial bounds were known at superlinear depth). Efremenko and Itsykson (ECCC TR25-188, Nov 2025; STOC 2026 per a search snippet) proved SETH-type lower bounds for a fragment of Res(⊕) capturing depth-n Res(⊕), implying SETH-type lower bounds for tree-like and regular Res(⊕), via "lossless lifting" with distinct random gadgets per variable. Bhattacharya and Chattopadhyay (arXiv:2507.23008) report exp(Ω̃(N^ε)) size bounds at depth O(N^{2-ε}) (a four-author STOC 2026 paper "Lower Bounds for Near-Quadratic-Depth Resolution over Parities" by Bhattacharya, Byramji, Chattopadhyay and Impagliazzo is listed in the STOC 2026 poster list).
+- Source: (i) Farzan Byramji, Russell Impagliazzo, "Lower Bounds for Bit Pigeonhole Principles in Bounded-Depth Resolution over Parities", arXiv:2511.20023 (25 Nov 2025; comments: "An earlier version containing one of the results appeared as ECCC TR25-118"), fetched https://arxiv.org/abs/2511.20023. (ii) ECCC TR25-188, "Strong ETH Holds for Bounded-Depth Resolution over Parities", Klim Efremenko, Dmitry Itsykson (published 21 Nov 2025), fetched https://eccc.weizmann.ac.il/report/2025/188. (iii) arXiv:2507.23008 and the STOC 2026 listing: search snippets only.
+- Quote: (i) "any depth $N^{2-\epsilon}$ Res$(\oplus)$ proof of BPHP$_n^{n+1}$ must have exponential size" and "no superpolynomial lower bounds were known for Res$(\oplus)$ proofs when the depth is superlinear". (ii) "our result implies SETH-type lower bounds for both tree-like and regular Res(⊕)." and "The core of our approach is a lossless lifting achieved by assigning distinct, randomly chosen gadgets to each variable."
+- Status: verified (fetched) for (i) and (ii); (iii) unverified (search snippet only).
+
+G6
+- Claim: STATUS OF DAG-LIKE Res(⊕): every fetched source through November 2025 (G2, G4, G5) treats superpolynomial lower bounds for unrestricted dag-like Res(⊕) as open; the strongest fetched results are for regular and depth N^{2-ε} fragments. A September 2026 arXiv preprint, arXiv:2609.23015, "An exponential lower bound for the bit pigeonhole principle in resolution over parities", claims an exponential lower bound for BPHP in unrestricted dag-like Res(⊕); I could not fetch it, could not identify its authors, and found no ECCC version or expert reaction, so this claim must be treated as unchecked.
+- Source: openness: ECCC TR23-187 and TR24-128 (fetched, quotes in G2 and G4) and arXiv:2511.20023 (fetched, quote in G5). The 2026 preprint: https://arxiv.org/pdf/2609.23015 (search result only). Third-party tracker https://lacker.io/complexity/problems/res-parities-daglike.html (search snippet, "verified 2026-08-10") lists general dag-like Res(⊕) as having no superpolynomial lower bound.
+- Quote: TR23-187: "remains a highly challenging open question." Search snippet of the preprint (not verbatim-verified): claims "an exponential lower bound for the standard bit pigeonhole principle in unrestricted DAG-like Res(⊕)".
+- Status: openness as of late 2025: verified (fetched). The 2026 preprint's claim: unverified (search snippet only).
+
+=== H. AUTOMATABILITY ===
+
+H1
+- Claim: Atserias and Müller (FOCS 2019; JACM 2020): finding a resolution refutation at most polynomially longer than the shortest one is NP-hard, so resolution is not automatizable unless P = NP (and not in quasi-polynomial or subexponential time unless NP ⊆ QP or NP ⊆ SUBEXP respectively).
+- Source: Albert Atserias, Moritz Müller, "Automating Resolution is NP-Hard", arXiv:1904.02991 (v1 5 Apr 2019, v2 7 Sep 2019), fetched https://arxiv.org/abs/1904.02991; [BN21] Section 7.3 cites it as [AM20] (fetched URL as in B1). JACM 2020 venue detail: unverified (memory).
+- Quote: arXiv: "Resolution is not automatizable unless P = NP." [BN21] [PDF text layer]: "What is known is that there is no algorithm that can find resolution proofs efficiently unless P = NP"
+- Status: verified (fetched)
+
+H2
+- Claim: Göös, Koroth, Mertz and Pitassi (STOC 2020): cutting planes is not automatable unless P = NP (NP-hard to find a CP refutation in time polynomial in the length of the shortest one).
+- Source: ECCC TR20-049, "Automating Cutting Planes is NP-Hard", Mika Göös, Sajin Koroth, Ian Mertz, Toniann Pitassi, 17 April 2020, fetched https://eccc.weizmann.ac.il/report/2020/049/; [BN21] Section 7.7.2 (cited as [GKMP20]).
+- Quote: ECCC: "it is NP-hard to find a CP refutation of $F$ in time polynomial in the length of the shortest such refutation". [BN21] [PDF text layer]: "Very recently, the cutting planes proof system was shown to be non-automatable, i.e., not to admit efficient proof search, unless P = NP"
+- Status: verified (fetched) (STOC 2020 venue: unverified, memory)
+
+H3
+- Claim: de Rezende, Göös, Nordström, Pitassi, Robere and Sokolov (STOC 2021): Nullstellensatz and polynomial calculus are not automatable unless P = NP. The original 2020 abstract also claimed Sherali-Adams, but Revision #2 (June 2022) retracts the Sherali-Adams non-automatability result; so SA automatability is not settled by this paper.
+- Source: ECCC TR20-064, "Automating Algebraic Proof Systems is NP-Hard", Susanna F. de Rezende, Mika Göös, Jakob Nordström, Toniann Pitassi, Robert Robere, Dmitry Sokolov (original 2 May 2020; Revision #2 10 June 2022), fetched https://eccc.weizmann.ac.il/report/2020/064. STOC 2021 pp. 209-222: search snippet only. [BN21] Section 7.5 (cited as [dRGN+20]).
+- Quote: Revision #2: "it is NP-hard to find a refutation of $F$ in the Nullstellensatz or Polynomial Calculus proof systems"; page note: "We retract the non-automatability result for Sherali-Adams (see footnote on page 1)." [BN21] [PDF text layer]: "it was recently shown that efficient proof search is NP-hard for Nullstellensatz and polynomial calculus"
+- Status: verified (fetched)
+
+H4
+- Claim: Earlier conditional non-automatizability results: Krajíček and Pudlák (1998) for extended Frege assuming RSA is secure; Bonet, Pitassi and Raz (SICOMP 2000) for Frege (and TC0-Frege) assuming the Diffie-Hellman problem is hard; Alekhnovich and Razborov (SICOMP 2008) for resolution assuming W[P] is not fixed-parameter tractable.
+- Source: [BN21] reference list entry as printed: "María Luisa Bonet, Toniann Pitassi, and Ran Raz. On interpolation and automatization for Frege systems. SIAM Journal on Computing, 29(6):1939-1967, 2000." and Section 7.3 text citing [AR08]. Fetched URL as in B1. Krajíček-Pudlák 1998 (Information and Computation) not found in the extracted text.
+- Quote [PDF text layer]: "What is known is that there is no algorithm that can find resolution proofs efficiently unless P = NP [AM20]" followed by citations "[AR08, MPW19]" (bracketed keys reconstructed).
+- Status: citations for BPR00 and AR08: verified (fetched); the cryptographic and W[P] hypotheses and the Krajíček-Pudlák 1998 citation: unverified (memory).
+
+H5
+- Claim: 2020-2024 automatability results: Papamakarios (CCC 2024) extended Atserias-Müller to every constant depth: for each d > 0, depth-d Frege systems are NP-hard to automate. Bell (ECCC TR20-105, 2020) showed regular and ordered (Davis-Putnam) resolution are not automatable unless P = NP; Buss and Yolcu (ECCC TR24-033, IPL 2024) showed regular resolution effectively simulates resolution, re-deriving that hardness.
+- Source: Theodoros Papamakarios, "Depth-d Frege Systems Are Not Automatable Unless P = NP", 39th Computational Complexity Conference (CCC 2024), LIPIcs Vol. 300, pp. 22:1-22:17, DOI 10.4230/LIPIcs.CCC.2024.22, fetched https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.CCC.2024.22. Bell: https://eccc.weizmann.ac.il/report/2020/105 and Buss-Yolcu: https://par.nsf.gov/biblio/10513095 (search only).
+- Quote: "We show that for any integer d > 0, depth-d Frege systems are NP-hard to automate."
+- Status: Papamakarios: verified (fetched). Bell 2020 and Buss-Yolcu 2024: unverified (search snippet only). No page found claiming (non-)automatability results for Res(⊕).
+
+=== I. PROOF COMPLEXITY AND THE PROVABILITY OF LOWER BOUNDS ===
+
+I1
+- Claim: Razborov (Annals of Mathematics 2015) constructed a pseudorandom generator with stretch m ≥ 2^{n^{Ω(1)}} that is hard for Res(ε log n) (resolution over k-DNFs); consequences include that Res(ε log t) proofs of the circuit-size principle need size exp(t^{Ω(1)}) and that Res(log log N) cannot efficiently prove NP ⊄ P/poly, with analogues for PCR in characteristic ≠ 2. This is the "natural proofs"-style barrier for weak proof systems.
+- Source: Alexander A. Razborov, "Pseudorandom generators hard for k-DNF resolution and polynomial calculus resolution", Annals of Mathematics, Vol. 181 (2015), Issue 2, pp. 415-472, DOI 10.4007/annals.2015.181.2.1, fetched https://annals.math.princeton.edu/2015/181-2/p01.
+- Quote: "A pseudorandom generator $G_n:\{0,1\}^n\to \{0,1\}^m$ is _hard_ for a propositional proof system $P$ if (roughly speaking)..." and "We present a function ($m\geq 2^{n^{\Omega(1)}}$) generator which is hard for $\mathrm{Res}(\epsilon\log n)$"
+- Status: verified (fetched) (the NP ⊄ P/poly consequence is as summarized by the fetch reader, not a verbatim quote)
+
+I2
+- Claim: Pich and Santhanam (STOC 2021): unconditionally, Cook's theory PV cannot prove, for any nondeterministic poly-time machine M, that L(M) is inapproximable by co-nondeterministic circuits of sub-exponential size; similar unprovability holds for a theory supporting a fragment of Jeřábek's APC1 and for Rudich's conjecture on super-bits.
+- Source: J. Pich and R. Santhanam, "Strong co-nondeterministic lower bounds for NP cannot be proved feasibly", STOC 2021: 53rd Annual ACM SIGACT Symposium on Theory of Computing, pp. 223-233, ACM 2021, DOI 10.1145/3406325.3451117; fetched Oxford repository record https://ora.ox.ac.uk/objects/uuid:4bb0ed7a-1983-4d95-8296-ab973094292e.
+- Quote: "Cook's theory PV formalizing poly-time reasoning cannot prove" ... "L(M) is inapproximable by co-nondeterministic circuits of sub-exponential size." and "similar unconditional unprovability results for the conjecture of Rudich about the existence of super-bits."
+- Status: verified (fetched)
+
+I3
+- Claim: Krajíček's proof complexity generators conjecture: there exists a generator hard for all proof systems, equivalently a p-time function g stretching each input by one bit whose range intersects all infinite NP sets; Krajíček (BSL 2024) proves the conjecture for "feasibly infinite" NP sets assuming a circuit-complexity hypothesis. (Krajíček's monograph "Proof Complexity Generators", CUP 2025, and the earlier "Forcing with Random Variables and Proof Complexity", CUP 2010/2011, Chapter 30, pose the conjecture.)
+- Source: Jan Krajíček, "On the existence of strong proof complexity generators", arXiv:2208.11642 (v4 9 Nov 2023), Bulletin of Symbolic Logic Vol. 30, Issue 1 (March 2024), pp. 20-40, fetched https://arxiv.org/abs/2208.11642. Books: search snippets only (https://www.cambridge.org/core/books/proof-complexity-generators/... and draft https://www2.karlin.mff.cuni.cz/~krajicek/gdraft-v5a.pdf).
+- Quote: "There exist a p-time function $g$ stretching each input by one bit such that its range intersects all infinite NP sets." and "show, assuming a hypothesis from circuit complexity, that the conjecture holds for all feasibly infinite NP sets."
+- Status: verified (fetched); book details unverified (search snippet only).
+
+I4
+- Claim: Davis and Robere (ECCC TR26-055, April 2026): the known bounded-depth Frege lower bounds can be formalized in Res(log), so an apparently weak subsystem of depth-d Frege proves depth-d Frege lower bounds, the first propositional proof system shown to prove strong lower bounds against itself; the argument uses a constructive switching lemma and reduces to refuting the weak pigeonhole principle.
+- Source: ECCC TR26-055, "Res(log) Proves Bounded-Depth Frege Lower Bounds", Ben Davis, Robert Robere, 10 April 2026, fetched https://eccc.weizmann.ac.il/report/2026/055.
+- Quote: "even an apparently limited subsystem of depth-$d$ Frege is already capable of proving depth-$d$ Frege lower bounds" and "this is the first example of a propositional proof system which is capable of proving strong lower bounds against itself"
+- Status: verified (fetched)
+
+I5
+- Claim: Khaniki, Pich and Sokolov (CCC 2026, "Efficient Adversaries"): Frege proof size is characterized by Pudlák-Buss prover-adversary games; several major lower bounds, including the constant-depth Frege PHP lower bound via k-evaluations, are constructive (they yield efficient adversary strategies); in contrast, a constructive EF lower bound for succinct SAT circuit lower bounds, together with EF proving correctness of anticheckers, would make the canonical pair of EF easy to separate (a conditional barrier).
+- Source: Erfan Khaniki, Ján Pich, Dmitry Sokolov, "Efficient Adversaries", 41st Computational Complexity Conference (CCC 2026), LIPIcs Vol. 383, pp. 8:1-8:32, DOI 10.4230/LIPIcs.CCC.2026.8, fetched https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.CCC.2026.8.
+- Quote: "The size of Frege proofs can be characterized in terms of prover-adversary games of Pudlák and Buss." and "yield efficient algorithms computing winning strategies of adversaries in the generalized games."
+- Status: verified (fetched)
+
+=== J. LIFTING THEOREMS IN PROOF COMPLEXITY ===
+
+J1
+- Claim: de Rezende, Nordström and Vinyals (FOCS 2016) used lifted pebbling formulas and communication complexity ("limited interaction") to prove cutting planes size-space trade-offs: formulas with constant-coefficient CP proofs in small size or small space, but where any small-space refutation needs superpolynomial length even with unbounded coefficients. (GGKS 2018 lifting from resolution width to CP is claim C3.)
+- Source: [BN21], Section 7.7.3; entry as printed: "Susanna F. de Rezende, Jakob Nordström, and Marc Vinyals. How limited interaction hinders real communication (and what it means for proof and circuit complexity). In Proceedings of the 57th Annual IEEE Symposium on Foundations of Computer Science (FOCS '16), pages 295-304, October 2016." Fetched URL as in B1.
+- Quote [PDF text layer]: "there are formulas which have cutting planes proofs with coefficients of constant size in either small length or small space, but for which any small-space refutation must require superpolynomial length"
+- Status: verified (fetched)
+
+J2
+- Claim: Query-to-communication lifting (Göös, Pitassi, Watson: deterministic, FOCS 2015/SICOMP 2018; BPP lifting, FOCS 2017) underlies the proof complexity lifting results above; for sums-of-squares, I found no query-to-communication lifting theorem. The closest "degree to size" results are Lauria and Nordström ("Tight Size-Degree Bounds for Sums-of-Squares Proofs", CCC 2015: SoS size n^{Ω(d)} from degree d) and Atserias and Hakoniemi (CCC 2019: size-to-degree trade-off, degree about √(n log s) + k, giving exponential SoS size bounds for Tseitin and knapsack); Mohanty, Raghavendra and Xu "lift" SoS degree-2 to degree-4 lower bounds, a different sense.
+- Source: GPW: not fetched. Lauria-Nordström https://eccc.weizmann.ac.il/report/2015/053 and arXiv:1504.01656; Atserias-Hakoniemi https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.CCC.2019.24: all located by search only.
+- Quote: none fetched.
+- Status: GPW: unverified (memory). SoS size-degree items: unverified (search snippet only). The negative finding ("no SoS lifting theorem found") reflects one targeted search only.
+
+=== K. EXTENDED RESOLUTION, PR, DRAT AND VARIANTS ===
+
+K1
+- Claim: Heule, Kiesl and Biere (CADE 2017 "Short proofs without new variables"; JAR 2019/2020 "Strong Extension-Free Proof Systems") introduced redundancy-based clausal proof systems (including PR, propagation redundancy) that are surprisingly strong without new variables; in particular pigeonhole formulas have short clausal proofs without introducing new variables.
+- Source: M. J. H. Heule, B. Kiesl, A. Biere, "Strong Extension-Free Proof Systems", Journal of Automated Reasoning 64(3), 533-554 (online 22 Feb 2019; issue 2020), doi:10.1007/s10817-019-09516-0; fetched open-access copy https://pmc.ncbi.nlm.nih.gov/articles/PMC7089731 (the Springer URL redirected to an authorization page and was not fetched). [BN21] entry as printed: "Marijn J. H. Heule, Benjamin Kiesl, and Armin Biere. Short proofs without new variables. In Proceedings of the 26th International Conference on Automated Deduction (CADE-26), volume 10395 of Lecture Notes in Computer Science, pages 130-147. Springer, August 2017."
+- Quote: "short clausal proofs for the famous pigeon hole formulas without introducing new variables" and "The resulting proof systems are surprisingly strong, even without the introduction of new variables"
+- Status: verified (fetched)
+
+K2
+- Claim: Buss and Thapen (LMCS 2021): with deletion, DRAT⁻, DSPR⁻ and DPR⁻ are equivalent (and equivalent to DBC⁻ by earlier work); without deletion, SPR⁻ simulates PR⁻ provided SPR inferences only infer short clauses; SPR⁻ has small refutations of the pigeonhole principle, bit pigeonhole principle, parity principle (and other hard principles); RAT⁻ refutations require exponential size, separating RAT⁻ from DRAT⁻ and SPR⁻.
+- Source: Sam Buss, Neil Thapen, "DRAT and Propagation Redundancy Proofs Without New Variables", Logical Methods in Computer Science, Volume 17, Issue 2 (April 23, 2021), lmcs:5750; arXiv:1909.00520 (v6 22 Apr 2021), fetched https://arxiv.org/abs/1909.00520.
+- Quote: "With deletion, we show that DRAT${}^-$, DSPR${}^-$ and DPR${}^-$ are equivalent." ; "SPR${}^-$ can simulate PR${}^-$ provided only short clauses are inferred by SPR inferences." ; "an exponential size lower bound for RAT${}^-$ refutations."
+- Status: verified (fetched)
+
+K3
+- Claim: Yolcu (STACS 2024): the bit pigeonhole principle BPHP_n requires SBC⁻ (set-blocked clauses without new variables) proofs of size 2^{Ω(n)}, separating ER from SBC⁻ and exponentially separating RAT⁻ and GER⁻ from SBC⁻, completing the picture among BC⁻, RAT⁻, SBC⁻, GER⁻. OPEN: superpolynomial lower bounds for SPR⁻ (and hence PR⁻, which is at least as strong) are not known; Yolcu states the lower-bound frontier is now SPR⁻.
+- Source: Emre Yolcu, "Lower bounds for set-blocked clauses proofs", arXiv:2401.11266 (20 Jan 2024), fetched https://arxiv.org/abs/2401.11266 and https://arxiv.org/html/2401.11266v1 (Section 1.3, Theorem 1.1). STACS 2024 (LIPIcs.STACS.2024.59): search snippet only.
+- Quote: "We prove exponential lower bounds for SBC^- proofs of a binary encoding of the pigeonhole principle" ; "which separates ER from SBC^-." ; "For lower bounds, this pushes the frontier to the system called set propagation redundancy"
+- Status: verified (fetched). That PR⁻ lower bounds are open is inferred from the SPR⁻ frontier statement plus K2's simulation (SPR⁻ ≤ PR⁻); no fetched page states "PR⁻ lower bounds are open" in those words.
+
+=== L. SAT-CERTIFIED AND COMPUTATIONAL FACTS ===
+
+L1
+- Claim: Peitl and Szeider (JAIR 2021) introduced "resolution hardness numbers" (the hardest formulas with a given number of clauses) and computed the first ones using an efficient SAT encoding for computing a shortest resolution proof of a candidate formula (exact minimal proof lengths are decided by a SAT solver).
+- Source: Tomáš Peitl and Stefan Szeider, "Finding the Hardest Formulas for Resolution", Journal of Artificial Intelligence Research, Vol. 72 (2021), published Sep 22, 2021, DOI 10.1613/jair.1.12589, fetched https://jair.org/index.php/jair/article/view/12589.
+- Quote: "we introduce _resolution hardness numbers;_" and "an efficient SAT encoding for computing a shortest resolution proof of a given candidate formula"
+- Status: verified (fetched)
+
+L2
+- Claim: Sidorov, van der Linden, Homem de Almeida Correia, de Weerdt and Demirović (2024, submitted to JAIR; a JAIR version is listed with an August 2026 date in search results) give a branch-and-bound algorithm for shortest resolution proofs that solves twice as many instances as the prior SAT-based approach and suggests solver proofs could be shortened by 30-60%; their table includes small pigeonhole instances (e.g. the n = 1 entry is certified optimal), per a search snippet.
+- Source: "How To Discover Short, Shorter, and the Shortest Proofs of Unsatisfiability: A Branch-and-Bound Approach for Resolution Proof Length Minimization", arXiv:2411.07955 (12 Nov 2024; "42 pages, 16 figures, 8 tables, submitted to Journal of Artificial Intelligence Research"), fetched https://arxiv.org/abs/2411.07955.
+- Quote: "This paper proposes a novel branch-and-bound algorithm for finding the shortest resolution proofs" ; "the proofs from state-of-the-art solvers could be shortened by 30-60%" ; "our approach solves twice as many instances as the previous work based on SAT solving"
+- Status: verified (fetched) for the abstract statements; pigeonhole table details and the 2026 JAIR version: unverified (search snippet only).
+
+L3
+- Claim: Proof checking infrastructure: DRAT-trim (Wetzler, Heule, Hunt, SAT 2014) has been the SAT Competition's reference checker since 2014 (DRAT proofs required for UNSAT credit), and cake_lpr (Tan, Heule, Myreen, TACAS 2021) is a formally verified (CakeML) checker for LPR/propagation-redundancy proofs that was used to check UNSAT proofs in SAT Competition 2020; since 2023 the competition requires formally verified checkers.
+- Source: cake_lpr: https://pmc.ncbi.nlm.nih.gov/articles/PMC7984575/ (redirect, not fetched) and DOI 10.1007/978-3-030-72013-1_12; SAT Competition 2014 rules https://satisfiability.org/competition/2014/certunsat.shtml; 2023 call https://satlive.org/2022/12/11/certifiedcheckers.html; all located by search only.
+- Quote: none fetched.
+- Status: unverified (search snippet only)
+
+=== M. 2025-2026 RESULTS THAT MOVE THE FRONTIER ===
+(See also I4 Davis-Robere 2026, I5 Khaniki-Pich-Sokolov 2026, G5 bounded-depth Res(⊕) 2025, G6 the unverified September 2026 dag-like Res(⊕) claim.)
+
+M1
+- Claim: de Rezende, Engström, Ghannane and Risse (ECCC TR26-078, May 2026): superpolynomial length lower bounds for tree-like semantic Frege refutations with bounded line size s(n), for a wide range of size functions, via explicit CNF families where a random member almost surely needs superpolynomial tree-like refutations; the bounds also apply to tree-like degree-d threshold systems (d up to n^{1-ε} per the search snippet).
+- Source: ECCC TR26-078, "Superpolynomial Length Lower Bounds for Tree-Like Semantic Proof Systems with Bounded Line Size", Susanna F. de Rezende, David Engström, Yassine Ghannane, Kilian Risse (submitted 3 May 2026, published 17 May 2026), fetched https://eccc.weizmann.ac.il/report/2026/078. arXiv:2604.28172 (search snippet).
+- Quote: "We prove superpolynomial length lower bounds for the semantic tree-like Frege refutation system with bounded line size." and "Our lower bounds apply also to tree-like degree d threshold systems."
+- Status: verified (fetched)
+
+M2
+- Claim: Carenini (ECCC TR26-158, August 2026): random 3-CNF formulas at every constant clause density above the first-moment unsatisfiability bound are exponentially hard for k-DNF resolution Res(k) up to k = O(√(log n)), improving Alekhnovich's range k = O(√(log n / log log n)); with n log^h n clauses the hardness holds for k = O(√(log n / log log n)).
+- Source: ECCC TR26-158, "Random 3-CNF formulas are hard for $k$-DNF resolution up to $k=O(\sqrt{\log n})$", Gaia Carenini (submitted 22 Aug 2026, published 30 Aug 2026), fetched https://eccc.weizmann.ac.il/report/2026/158.
+- Quote: "We prove exponential lower bounds for $k$-DNF resolution on random $3$-CNF formulas" and "For random $3$-CNFs this improves Alekhnovich's range $k=O(\sqrt{\log n/\log\log n})$"
+- Status: verified (fetched)
+
+M3
+- Claim: Algebraic-frontier items found but not fetched: (i) Lu, Santhanam and Tzameret (ITCS 2026, LIPIcs vol. 362, 99:1-99:25; arXiv:2509.16824; ECCC TR25-134): unconditionally, a DNF family encoding the hardness of constant-depth algebraic circuit lower bounds (Permanent over finite fields) has no polynomial-size AC0[p]-Frege proofs for infinitely many input lengths; a third-party tracker nevertheless lists AC0[p]-Frege lower bounds as still open, so the exact scope ("infinitely often", specific formula) must be checked in the paper. (ii) Elbaz, Govindasamy, Lu and Tzameret (STOC 2026; ECCC TR25-080; arXiv:2506.17210): first lower bounds against (multilinear, constant-depth) IPS over constant-size finite fields, for a knapsack variant. (iii) Searches for "Frege lower bound 2025" and "AC0[2]-Frege 2026" surfaced no page claiming a superpolynomial AC0[2]-Frege, Frege or extended Frege lower bound.
+- Source: https://drops.dagstuhl.de/storage/00lipics/lipics-vol362-itcs2026/LIPIcs.ITCS.2026.99/LIPIcs.ITCS.2026.99.pdf, https://eccc.weizmann.ac.il/report/2025/134/download, https://eccc.weizmann.ac.il/report/2025/080, https://www.imperial.ac.uk/news/articles/engineering/computing/2026/research-news-two-papers-accepted-at-stoc-2026/ (all search results only).
+- Quote: none fetched.
+- Status: unverified (search snippet only)
+
+=== SUMMARY OF WHAT IS OPEN (each item cites a fetched page stating it is open, unless noted) ===
+1. Superpolynomial lower bounds for AC0[p]-Frege, including bounded-depth LK(⊕) / AC0[2]-Frege: open ([BN21] Open Problem 7.22; ECCC TR19-024). See E1, M3.
+2. Superpolynomial lower bounds for Frege and extended Frege: open (Alekseev ToC 2026; [BN21] Open Problems 7.19, 7.20). See E2.
+3. Superpolynomial lower bounds for random 3-CNFs (linear clause density) in bounded-depth Frege: open (arXiv:2403.02275 "major open problem"). See D5.
+4. Cutting planes lower bounds for random k-CNF with constant k: open as of the 2021 survey ([BN21] Open Problem 7.16). See C4.
+5. Superpolynomial lower bounds for general dag-like Res(⊕): open per all fetched sources through Nov 2025 (TR23-187, TR24-128, arXiv:2511.20023); a September 2026 arXiv preprint claims to resolve it for BPHP, unverified. See G6.
+6. Lower bounds for SPR⁻ and PR⁻ (propagation redundancy without new variables): open per Yolcu 2024 ("pushes the frontier to ... set propagation redundancy"). See K3.
+7. Automatability of Sherali-Adams: the only NP-hardness claim was retracted (TR20-064 Revision #2). See H3.
+8. Whether CP with polynomially bounded coefficients (CP*) simulates general CP ([BN21] Open Problem 7.14): verified (fetched) from the chapter's open problem list.
+
+CLAIMS NOT VERIFIED AND WORTH A FOLLOW-UP FETCH (in priority order): arXiv:2609.23015 (dag-like Res(⊕) claim, authors unknown); Grigoriev 2001 and Schoenebeck 2008 exact statements; the quadratic Frege lower bound (Krajíček 1995 book, Buss notes); Krajíček-Pudlák 1998 (EF vs RSA) and Alekhnovich-Razborov 2008 (W[P]) hypotheses; Lu-Santhanam-Tzameret ITCS 2026 scope; cake_lpr/DRAT-trim competition facts; Håstad-Risse 2022 exponent; STOC 2025 venue for Alekseev-Itsykson; JACM 2020 venue for Atserias-Müller.
